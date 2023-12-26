@@ -1,15 +1,12 @@
 import express from 'express';
+import './config/database.js';
+import './config/passport.js';
+import authRouter from './routes/authRoute.js';
 const app = express();
 
-app.use(express.json());
 
+app.use(authRouter);
 
-
-app.use((err, req, res, next) => {
-    console.log(err.stack);
-    res.status(500).json("Something broke!");
-})
-
-app.listen(8080, () => {
-    console.log("Listening on port 8080");
+app.listen(5000, () => {
+    console.log("Listening on port 5000");
 })
