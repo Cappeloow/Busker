@@ -18,7 +18,8 @@ passport.use(new GoogleStrategy({
             if (!user) {
                 user = await User.create({
                     Email: profile.emails[0].value,
-                    ArtistName: profile.displayName,
+                    ArtistName: profile.displayName ? profile.displayName : null,
+                    CreatedAt: new Date(),
                 });
             } else {
                 console.log("There is a user already registered with this email");
