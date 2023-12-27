@@ -11,6 +11,7 @@ userRouter.get('/qrcode/:userId', getUserQRCode)
 userRouter.put('/update/:userId', updateUserDetails);
 
 userRouter.get('/:userId', getSpecificUser);
+
 userRouter.get('/all', getAllUsers);
 
 
