@@ -22,13 +22,14 @@ const User = sequelize.define('users', {
     City: {
         type: DataTypes.STRING,
     },
-    ProfileImgURL: {
+    ProfileImg: {
         type: DataTypes.STRING,
     },
-    QRLink: {
-        type: DataTypes.STRING,
-        unique: true,
+    CreatedAt: {
+        type: DataTypes.DATE,
     },
 });
+
+sequelize.sync();
 
 export default User;
