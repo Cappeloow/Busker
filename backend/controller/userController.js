@@ -34,3 +34,24 @@ export async function updateUserDetails(req, res) {
         res.status(500).send(error);
     }
 }
+
+export async function getSpecificUser(req, res) {
+
+    const userId = req.params.userId;
+    User.findOne({ UserId: userId })
+        .then(user => {
+            if (user) {
+                res.send(user);
+            } else {
+                res.status(404).send('User not found');
+            }
+        })
+        .catch(error => {
+            res.status(500).send(error);
+        });
+}
+
+export async function getAllUsers(req, res) {
+    const users = await User.findAll();
+    res.status(200).send(users);
+}
