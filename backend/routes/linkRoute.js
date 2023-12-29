@@ -4,8 +4,8 @@ const linkRouter = express.Router();
 
 
 
-linkRouter.get('/:userId', getAllLinks)
+linkRouter.get('/', getAllLinks)
 
-linkRouter.post('/:userId/create', createLink);
+linkRouter.post('/create', createLink);
 
 export default linkRouter;
