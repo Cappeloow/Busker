@@ -6,9 +6,9 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 passport.use(new GoogleStrategy({
-    clientID: process.env.GOOGLE_CLIENT_ID,
-    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: "http://localhost:5000/google/callback",
+    clientID: process.env.GOOGLE_CLIENT_ID as string,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+    callbackURL: "http://localhost:5000/google/callback" as string,
     passReqToCallback: true,
 },
     async function (request, accessToken, refreshToken, profile, done) {
@@ -34,11 +34,11 @@ passport.use(new GoogleStrategy({
 
 ));
 
-passport.serializeUser(function (user, done) {
+passport.serializeUser(function (user: any, done) {
     done(null, user.UserID);
 });
 
-passport.deserializeUser(async function (id, done) {
+passport.deserializeUser(async function (id: string, done) {
     try {
         const user = await User.findByPk(id);
         done(null, user);

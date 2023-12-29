@@ -1,5 +1,6 @@
 import generateQRCode from '../services/userService.js'
 import User from '../entities/user.js';
+import UserModel from '../entities/user.js';
 export default function sayHello(req, res) {
     res.send('Hello Dude!');
 }
@@ -15,10 +16,11 @@ export async function getUserQRCode(req, res) {
 }
 
 export async function updateUserDetails(req, res) {
-    const userId = req.params.userId;
+    const userId = req.params.userId as string;
     const userDetails = req.body;
     try {
-        const user = await User.findOne({ UserId: userId });
+        const user = await UserModel.findOne({ where: { UserID: userId } });
+
         if (user) {
             user.ArtistName = userDetails.artistName != null ? userDetails.artistName : user.ArtistName;
             user.Country = userDetails.country != null ? userDetails.country : user.Country;
@@ -38,7 +40,7 @@ export async function updateUserDetails(req, res) {
 export async function getSpecificUser(req, res) {
 
     const userId = req.params.userId;
-    User.findOne({ UserId: userId })
+    UserModel.findOne({ where: { UserID: userId } })
         .then(user => {
             if (user) {
                 res.send(user);
