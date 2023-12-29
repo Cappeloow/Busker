@@ -55,3 +55,14 @@ export async function getAllUsers(req, res) {
     const users = await User.findAll();
     res.status(200).send(users);
 }
+
+export async function unregisterUser(req, res) {
+    const userId = req.body.userId;
+    const user = await User.findOne({ UserId: userId });
+
+    if (user) {
+        user.destroy();
+        return res.status(204).send('User was successfully removed');
+    }
+    return res.status(404).send('User not found');
+}

@@ -1,13 +1,12 @@
+import User from '../entities/user.js';
 import Link from '../entities/link.js';
-
 export async function createLink(req, res) {
-    const userId = req.params.userId;
-    console.log("userId:", userId);
+    const { userId, Icon, Title, URL } = req.body;
     try {
         const newLink = await Link.create({
-            Icon: "FB",
-            Title: "FACEBOOK",
-            URL: "https://example.com",
+            Icon: Icon,
+            Title: Title,
+            URL: URL,
             UserID: userId
         });
         console.log("newLinks:", newLink)
@@ -21,7 +20,8 @@ export async function createLink(req, res) {
 
 export async function getAllLinks(req, res) {
     try {
-        const links = await Link.findAll();
+        const userId = req.body.userId;
+        const links = await Link.findAll({ where: { UserID: userId } });
         res.status(200).json(links);
     } catch (error) {
         res.status(500).send('Internal Server Error');

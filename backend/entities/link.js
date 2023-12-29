@@ -9,10 +9,6 @@ const Link = sequelize.define('links', {
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
     },
-    UserID: {
-        type: DataTypes.UUID,
-        allowNull: false,
-    },
     Icon: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -26,9 +22,6 @@ const Link = sequelize.define('links', {
         allowNull: false,
     },
 });
-
-// Define association with the User model
-Link.belongsTo(User, { foreignKey: 'UserID' });
 sequelize.sync();
 
 export default Link;

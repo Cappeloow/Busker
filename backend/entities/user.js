@@ -1,7 +1,7 @@
 // models/user.js
 import { DataTypes } from 'sequelize';
 import sequelize from '../config/database.js'; // Adjust the path to your Sequelize configuration
-
+import Link from './link.js';
 const User = sequelize.define('users', {
     UserID: {
         type: DataTypes.UUID,
@@ -30,6 +30,10 @@ const User = sequelize.define('users', {
     },
 });
 
+User.hasMany(Link, {
+    foreignKey: 'UserID', // Assuming 'UserID' is the name of the foreign key column in the 'links' table
+    onDelete: 'cascade',  // This ensures that associated links are deleted when a user is deleted
+});
 sequelize.sync();
 
 export default User;
