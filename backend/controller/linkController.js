@@ -28,3 +28,21 @@ export async function getAllLinks(req, res) {
     }
 }
 
+
+export async function deleteLink(req, res) {
+    const { linkId, userId } = req.body;
+
+    const link = await Link.findByPk(linkId);
+    if (!link) {
+        return res.status(404).send('Link not found');
+    }
+
+    if (link.UserID !== userId) {
+        return res.status(403).send('Unauthorized');
+    }
+
+    await link.destroy();
+    res.status(200).json("Link was successfully deleted");
+}
+
+
