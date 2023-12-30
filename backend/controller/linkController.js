@@ -41,10 +41,7 @@ export async function deleteLink(req, res) {
         return res.status(403).send('Unauthorized');
     }
 
-    console.log("Before destroy");
     await link.destroy();
-    console.log("After destroy");
-
     res.status(200).json("Link was successfully deleted");
 }
 
