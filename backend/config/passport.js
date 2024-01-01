@@ -4,6 +4,8 @@ import { Strategy as GoogleStrategy } from 'passport-google-oauth2';
 import User from '../entities/user.js';
 import dotenv from 'dotenv';
 dotenv.config();
+import initStripe from '../stripe.js';
+const stripe = initStripe();
 
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
@@ -13,14 +15,27 @@ passport.use(new GoogleStrategy({
 },
     async function (request, accessToken, refreshToken, profile, done) {
         try {
-            // looking for a user in the fb with the same email adress as we trying to authenticate with on google auth.
+            // looking for a user in the db with the same email address as we are trying to authenticate with on Google auth.
             let user = await User.findOne({ where: { Email: profile.emails[0].value } });
+
             if (!user) {
-                user = await User.create({
-                    Email: profile.emails[0].value,
-                    ArtistName: profile.displayName ? profile.displayName : null,
-                    CreatedAt: new Date(),
-                });
+                // Retrieve the Stripe customer ID based on the email address
+                const stripeCustomer = await stripe.customers.list({ email: profile.emails[0].value, limit: 1 });
+
+                if (stripeCustomer.data.length === 0) {
+                    // If no Stripe customer is found, create one
+                    const createdStripeCustomer = await stripe.customers.create({
+                        email: profile.emails[0].value,
+                    });
+
+                    // Create the user in the database with the Stripe customer ID
+                    user = await User.create({
+                        UserID: createdStripeCustomer.id,
+                        Email: profile.emails[0].value,
+                        ArtistName: profile.displayName ? profile.displayName : null,
+                        CreatedAt: new Date(),
+                    });
+                }
             } else {
                 console.log("There is a user already registered with this email");
             }
@@ -31,7 +46,6 @@ passport.use(new GoogleStrategy({
             return done(error, null);
         }
     }
-
 ));
 
 passport.serializeUser(function (user, done) {
@@ -46,3 +60,4 @@ passport.deserializeUser(async function (id, done) {
         done(error, null);
     }
 });
+
