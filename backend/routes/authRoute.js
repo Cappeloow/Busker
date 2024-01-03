@@ -24,7 +24,6 @@ authRouter.get('/google/callback',
 );
 
 authRouter.get('/protected', auth, (req, res) => {
-    console.log(req.user);
     res.send(`Welcome ${req.user.ArtistName}`);
 });
 

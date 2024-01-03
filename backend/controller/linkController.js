@@ -9,8 +9,6 @@ export async function createLink(req, res) {
             URL: URL,
             UserID: userId
         });
-        console.log("newLinks:", newLink)
-        console.log('New link created:', newLink);
         res.status(201).json(newLink);
     } catch (error) {
         console.error('Error creating link:', error);

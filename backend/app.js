@@ -21,17 +21,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 // my routes
 app.use(authRouter);
-app.use('/test', (req, res, next) => {
-    console.log('Session:', req.session);
-    console.log('User:', req.user);
-
-    if (req.isAuthenticated()) {
-        res.send(`Hello ${req.user.ArtistName || 'Guest'}`);
-    } else {
-        console.log('User not authenticated. Redirecting to /login.');
-        res.redirect('/');
-    }
-});
 app.use('/user', userRouter);
 app.use('/product', productRouter)
 app.use('/link', linkRouter)
