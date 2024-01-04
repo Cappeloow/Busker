@@ -6,6 +6,7 @@ import Order from '../entities/order.js';
 import OrderItem from '../entities/orderItem.js';
 export async function stripeCheckout(req, res, next) {
     const cartItems = req.body;
+    console.log(cartItems);
     const user = req.user;
     if (!user) {
         return res.status(403).send("You need to be logged in to checkout");
@@ -66,4 +67,25 @@ export async function getConfirmation(req, res, next) {
     }));
 
     res.status(200).json({ session: session, orderItems: orderItemsArray });
+}
+
+
+export async function getOrder(req, res) {
+    const user = req.user;
+
+    try {
+        const orders = await Order.findAll({ where: { UserID: user.dataValues.UserID } });
+
+        const ordersWithItems = await Promise.all(
+            orders.map(async (order) => {
+                const orderItems = await OrderItem.findAll({ where: { OrderID: order.OrderID } });
+                return { order, orderItems };
+            })
+        );
+
+        res.status(200).json({ ordersWithItems });
+    } catch (error) {
+        console.error('Error retrieving orders and order items:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
 }
