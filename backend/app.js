@@ -10,7 +10,7 @@ import productRouter from './routes/productRoute.js'
 import authRouter from './routes/authRoute.js';
 import userRouter from './routes/userRoute.js';
 import linkRouter from './routes/linkRoute.js';
-import checkoutRouter from './routes/checkoutRoute.js';
+import orderRouter from './routes/orderRoute.js';
 
 const app = express();
 app.use(express.json());
@@ -24,7 +24,7 @@ app.use(authRouter);
 app.use('/user', userRouter);
 app.use('/product', productRouter)
 app.use('/link', linkRouter)
-app.use('/checkout', checkoutRouter);
+app.use('/order', orderRouter);
 // server listening
 app.listen(5000, () => {
     console.log("Listening on port 5000");
