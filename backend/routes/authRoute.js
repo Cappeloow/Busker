@@ -13,7 +13,7 @@ authRouter.get('/', (req, res) => {
 });
 
 authRouter.get('/auth/google',
-    passport.authenticate('google', { scope: ['email', 'profile'], prompt: 'consent' }
+    passport.authenticate('google', { scope: ['email', 'profile'], } // prompt: 'consent' 
     ));
 
 authRouter.get('/google/callback',
