@@ -50,7 +50,6 @@ export async function getConfirmation(req, res, next) {
         orderInDb = await Order.findOne({ where: { SessionID: session.id } });
 
         if (!orderInDb) {
-            console.log("test order 2.0");
             const order = await Order.create({
                 TotalPrice: session.amount_total / 100,
                 UserID: session.customer,
@@ -65,24 +64,42 @@ export async function getConfirmation(req, res, next) {
                     ProductID: lineItem.price.product,
                     OrderID: order.dataValues.OrderID
                 });
-
-                return createdOrderItem; // Store the created OrderItem in the array
+                const updatedOrderItem = {
+                    title: lineItem.description,
+                    price: lineItem.amount_total / 100,
+                    quantity: lineItem.quantity
+                }
+                return updatedOrderItem; //Updated OrderItem
             }));
-            res.status(200).json({ session: session, orderItems: orderItemsArray });
+            const sendOrder = {
+                orderId: order.dataValues.OrderID,
+                totalPrice: session.amount_total / 100,
+                currency: session.currency,
+                orderItemsArray
+            }
+            res.status(200).json({ session: session, order: sendOrder });
         } else {
-            console.log("test order 3.0");
             const orderItemsArray = await Promise.all(lineItems.data.map(async (lineItem) => {
-
                 const createdOrderItem = ({
                     Price: lineItem.amount_total / 100,
                     Quantity: lineItem.quantity,
                     ProductID: lineItem.price.product,
                     OrderID: orderInDb.dataValues.OrderID
                 });
-
-                return createdOrderItem; // Store the created OrderItem in the array
+                const updatedOrderItem = {
+                    title: lineItem.description,
+                    price: lineItem.amount_total / 100,
+                    quantity: lineItem.quantity
+                }
+                return updatedOrderItem; //Store the updated orderItem in the array
             }));
-            res.status(200).json({ session: session, orderItems: orderItemsArray });
+            const sendOrder = {
+                orderId: orderInDb.dataValues.OrderID,
+                totalPrice: session.amount_total / 100,
+                currency: session.currency,
+                orderItemsArray
+            }
+            res.status(200).json({ session: session, order: sendOrder });
         }
     } catch (error) {
         console.error(error);

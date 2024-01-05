@@ -1,5 +1,7 @@
 import generateQRCode from '../services/userService.js'
 import User from '../entities/user.js';
+import initStripe from '../stripe.js';
+const stripe = initStripe();
 export default function sayHello(req, res) {
     res.send('Hello Dude!');
 }
@@ -59,8 +61,9 @@ export async function getAllUsers(req, res) {
 export async function unregisterUser(req, res) {
     const userId = req.body.userId;
     const user = await User.findOne({ UserId: userId });
-
-    if (user) {
+    const userOnStripe = await stripe.customers.retrieve(userId);
+    if (user && userOnStripe) {
+        await stripe.customers.del(userOnStripe.id);
         user.destroy();
         return res.status(204).send('User was successfully removed');
     }
