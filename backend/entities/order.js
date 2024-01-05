@@ -11,6 +11,13 @@ const Order = sequelize.define('orders', {
     TotalPrice: {
         type: DataTypes.DECIMAL(10, 2),
     },
+    Status: {
+        type: DataTypes.ENUM('Pending', 'Processing', 'Shipped', 'Delivered'),
+        defaultValue: 'Pending',
+    },
+    SessionID: {
+        type: DataTypes.STRING,
+    },
 });
 
 Order.hasMany(OrderItem, {

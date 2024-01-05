@@ -39,35 +39,57 @@ export async function stripeCheckout(req, res, next) {
     }
 }
 
-
 export async function getConfirmation(req, res, next) {
-
     const { id } = req.body;
+    let orderInDb; // Declare orderInDb variable here
 
-    const session = await stripe.checkout.sessions.retrieve(id);
-    const lineItems = await stripe.checkout.sessions.listLineItems(id);
+    try {
+        const session = await stripe.checkout.sessions.retrieve(id);
+        const lineItems = await stripe.checkout.sessions.listLineItems(id);
 
-    const order = await Order.create({
-        TotalPrice: session.amount_total / 100,
-        UserID: session.customer,
-    });
+        orderInDb = await Order.findOne({ where: { SessionID: session.id } });
 
-    const orderItemsArray = await Promise.all(lineItems.data.map(async (lineItem) => {
-        console.log(lineItem);
+        if (!orderInDb) {
+            console.log("test order 2.0");
+            const order = await Order.create({
+                TotalPrice: session.amount_total / 100,
+                UserID: session.customer,
+                SessionID: session.id,
+            });
 
-        // Create OrderItem
-        const createdOrderItem = await OrderItem.create({
-            Price: lineItem.amount_total / 100,
-            Quantity: lineItem.quantity,
-            ProductID: lineItem.price.product,
-            OrderID: order.dataValues.OrderID
-        });
+            const orderItemsArray = await Promise.all(lineItems.data.map(async (lineItem) => {
+                // Create OrderItem
+                const createdOrderItem = await OrderItem.create({
+                    Price: lineItem.amount_total / 100,
+                    Quantity: lineItem.quantity,
+                    ProductID: lineItem.price.product,
+                    OrderID: order.dataValues.OrderID
+                });
 
-        return createdOrderItem; // Store the created OrderItem in the array
-    }));
+                return createdOrderItem; // Store the created OrderItem in the array
+            }));
+            res.status(200).json({ session: session, orderItems: orderItemsArray });
+        } else {
+            console.log("test order 3.0");
+            const orderItemsArray = await Promise.all(lineItems.data.map(async (lineItem) => {
 
-    res.status(200).json({ session: session, orderItems: orderItemsArray });
+                const createdOrderItem = ({
+                    Price: lineItem.amount_total / 100,
+                    Quantity: lineItem.quantity,
+                    ProductID: lineItem.price.product,
+                    OrderID: orderInDb.dataValues.OrderID
+                });
+
+                return createdOrderItem; // Store the created OrderItem in the array
+            }));
+            res.status(200).json({ session: session, orderItems: orderItemsArray });
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Error");
+    }
 }
+
 
 
 export async function getOrder(req, res) {
