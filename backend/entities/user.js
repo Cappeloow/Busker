@@ -1,8 +1,9 @@
-// models/user.js
+// entities/user.js
 import { DataTypes } from 'sequelize';
 import sequelize from '../config/database.js'; // Adjust the path to your Sequelize configuration
 import Link from './link.js';
 import Order from './order.js';
+import Availability from './availability.js';
 const User = sequelize.define('users', {
     UserID: {
         type: DataTypes.UUID,
@@ -37,6 +38,11 @@ User.hasMany(Link, {
 });
 
 User.hasMany(Order, {
+    foreignKey: 'UserID', // Assuming 'UserID' is the name of the foreign key column in the 'links' table
+    onDelete: 'cascade',  // This ensures that associated links are deleted when a user is deleted
+})
+
+User.hasMany(Availability, {
     foreignKey: 'UserID', // Assuming 'UserID' is the name of the foreign key column in the 'links' table
     onDelete: 'cascade',  // This ensures that associated links are deleted when a user is deleted
 })
