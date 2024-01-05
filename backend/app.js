@@ -11,6 +11,7 @@ import authRouter from './routes/authRoute.js';
 import userRouter from './routes/userRoute.js';
 import linkRouter from './routes/linkRoute.js';
 import orderRouter from './routes/orderRoute.js';
+import availabilityRouter from './routes/availabilityRoute.js';
 
 const app = express();
 app.use(express.json());
@@ -25,6 +26,7 @@ app.use('/user', userRouter);
 app.use('/product', productRouter)
 app.use('/link', linkRouter)
 app.use('/order', orderRouter);
+app.use('/availability', availabilityRouter);
 // server listening
 app.listen(5000, () => {
     console.log("Listening on port 5000");

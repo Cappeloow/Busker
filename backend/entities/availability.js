@@ -31,7 +31,7 @@ const Availability = sequelize.define('availability', {
     allowNull: true,
   },
 
-  showDetails: {
+  description: {
     type: DataTypes.STRING,
     allowNull: true,
   },
