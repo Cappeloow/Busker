@@ -6,7 +6,6 @@ import Order from '../entities/order.js';
 import OrderItem from '../entities/orderItem.js';
 export async function stripeCheckout(req, res, next) {
     const cartItems = req.body;
-    console.log(cartItems);
     const user = req.user;
     if (!user) {
         return res.status(403).send("You need to be logged in to checkout");
@@ -41,7 +40,7 @@ export async function stripeCheckout(req, res, next) {
 
 export async function getConfirmation(req, res, next) {
     const { id } = req.body;
-    let orderInDb; // Declare orderInDb variable here
+    let orderInDb;
 
     try {
         const session = await stripe.checkout.sessions.retrieve(id);

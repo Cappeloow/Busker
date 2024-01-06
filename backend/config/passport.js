@@ -37,7 +37,7 @@ passport.use(new GoogleStrategy({
                     });
                 }
             } else {
-                console.log("There is a user already registered with this email");
+                res.status(200).send({ message: 'There is a user already registered with this email address' });
             }
 
             return done(null, user);
