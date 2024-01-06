@@ -6,7 +6,7 @@ import { createAvailability, getAllAvailabilities, updateAvailability } from '..
 
 availabilityRouter.post('/create', auth, createAvailability);
 
-availabilityRouter.get('/', getAllAvailabilities);
+availabilityRouter.get('/:id', getAllAvailabilities);
 
 availabilityRouter.put('/update', auth, updateAvailability);
 

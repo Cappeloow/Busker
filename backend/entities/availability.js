@@ -1,7 +1,7 @@
 // entities/availability.js
 import { DataTypes } from 'sequelize';
 import sequelize from '../config/database.js';
-
+import { isString } from '../validation.js';
 const Availability = sequelize.define('availability', {
   availabilityId: {
     type: DataTypes.INTEGER,
@@ -24,6 +24,9 @@ const Availability = sequelize.define('availability', {
   location: {
     type: DataTypes.STRING,
     allowNull: true,
+    validate: {
+      isString: (value) => isString(value, 'Location'),
+    },
   },
 
   bookedDateTime: {
@@ -34,10 +37,12 @@ const Availability = sequelize.define('availability', {
   description: {
     type: DataTypes.STRING,
     allowNull: true,
+    validate: {
+      isString: (value) => isString(value, 'Description'),
+    },
   },
-}, {
-  // Other model options, e.g., timestamps, underscored, etc.
-});
+},
+);
 
 
 export default Availability;
