@@ -102,6 +102,16 @@ export async function getConfirmation(req, res, next) {
             res.status(200).json({ session: session, order: sendOrder });
         }
     } catch (error) {
+        if (error.name === 'SequelizeValidationError') {
+            const validationErrors = error.errors.map(err => ({
+                message: err.message,
+                type: err.type,
+                path: err.path,
+                value: err.value,
+            }));
+
+            return res.status(400).json({ errors: validationErrors });
+        }
         console.error(error);
         res.status(500).send("Error");
     }
