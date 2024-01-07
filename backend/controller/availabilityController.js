@@ -6,7 +6,7 @@ export async function createAvailability(req, res) {
 
     const availabilityExist = await Availability.findOne({ where: { date: date } })
     if (availabilityExist) {
-        res.status(404).send("Your are already available on that date.");
+        res.status(404).json({ message: "You are already avaiable at that date" })
         return;
     }
 
@@ -31,12 +31,11 @@ export async function getAllAvailabilities(req, res) {
 
 export async function updateAvailability(req, res) {
     const { availabilityId, description, date, status, bookedDateTime, location } = req.body;
-
     try {
         const availability = await Availability.findByPk(availabilityId);
 
         if (!availability) {
-            return res.status(404).send("There is no availability with that ID");
+            return res.status(404).json({ message: "There is no availability with that ID" });
         }
 
         availability.description = description != null ? description : availability.description;

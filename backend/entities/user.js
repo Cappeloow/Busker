@@ -30,6 +30,9 @@ const User = sequelize.define('users', {
     CreatedAt: {
         type: DataTypes.DATE,
     },
+    stripeId: {
+        type: DataTypes.STRING,
+    }
 });
 
 User.hasMany(Link, {
@@ -38,9 +41,9 @@ User.hasMany(Link, {
 });
 
 User.hasMany(Order, {
-    foreignKey: 'UserID', // Assuming 'UserID' is the name of the foreign key column in the 'links' table
-    onDelete: 'cascade',  // This ensures that associated links are deleted when a user is deleted
-})
+    foreignKey: 'UserID', // Assuming 'stripeId' is the name of the foreign key column in the 'orders' table
+    onDelete: 'cascade',   // This ensures that associated orders are deleted when a user is deleted
+});
 
 User.hasMany(Availability, {
     foreignKey: 'UserID', // Assuming 'UserID' is the name of the foreign key column in the 'links' table
