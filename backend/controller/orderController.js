@@ -24,7 +24,7 @@ export async function stripeCheckout(req, res, next) {
     try {
         const session = await stripe.checkout.sessions.create({
             line_items,
-            customer: user.UserID, // UUID OR customer id?
+            customer: user.stripeId, // UUID OR customer id?
             mode: "payment",
             allow_promotion_codes: true,
             success_url: `${process.env.BUSKER_URL}confirmation`,
@@ -50,8 +50,8 @@ export async function getConfirmation(req, res, next) {
 
         if (!orderInDb) {
             const order = await Order.create({
+                UserID: req.user.UserID,
                 TotalPrice: session.amount_total / 100,
-                UserID: session.customer,
                 SessionID: session.id,
             });
 

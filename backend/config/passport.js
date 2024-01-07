@@ -27,17 +27,15 @@ passport.use(new GoogleStrategy({
                     const createdStripeCustomer = await stripe.customers.create({
                         email: profile.emails[0].value,
                     });
-
+                    console.log(createdStripeCustomer.id);
                     // Create the user in the database with the Stripe customer ID
                     user = await User.create({
-                        UserID: createdStripeCustomer.id,
                         Email: profile.emails[0].value,
                         ArtistName: profile.displayName ? profile.displayName : null,
                         CreatedAt: new Date(),
+                        stripeId: createdStripeCustomer.id
                     });
                 }
-            } else {
-                res.status(200).send({ message: 'There is a user already registered with this email address' });
             }
 
             return done(null, user);

@@ -6,7 +6,7 @@ const orderRouter = express.Router();
 
 orderRouter.post('/create-checkout-session', auth, stripeCheckout);
 
-orderRouter.post('/confirmation', getConfirmation);
+orderRouter.post('/confirmation', auth, getConfirmation);
 
 orderRouter.get('/', auth, getOrder)
 export default orderRouter;
