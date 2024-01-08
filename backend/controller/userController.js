@@ -1,6 +1,15 @@
 import generateQRCode from '../services/userService.js'
 import User from '../entities/user.js';
 import initStripe from '../stripe.js';
+import useGoogleCloudStorage from '../utils/useGoogleCloudStorage.js';
+import multer from 'multer';
+
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
+
+const { uploadImage, retrieveImage } = useGoogleCloudStorage();
+
+
 const stripe = initStripe();
 export default function sayHello(req, res) {
     res.send('Hello Dude!');
@@ -38,7 +47,6 @@ export async function updateUserDetails(req, res) {
 }
 
 export async function getSpecificUser(req, res) {
-
     const userId = req.params.userId;
     User.findOne({ UserId: userId })
         .then(user => {
@@ -69,3 +77,70 @@ export async function unregisterUser(req, res) {
     }
     return res.status(404).send('User not found');
 }
+
+export async function getSpecificUserProfileImg(req, res) {
+    const id = req.params.userId;
+    const user = await User.findByPk(id);
+    if (!user) {
+        res.status(404);
+    }
+    res.setHeader('Content-Type', 'image/jpeg');
+    res.status(200).send(user.ProfileImg);
+}
+
+export async function uploadProfileImage(req, res) {
+    upload.single('profileImage')(req, res, async (err) => {
+        const userId = req.user.UserID;
+        const user = await User.findByPk(userId)
+        try {
+            if (err instanceof multer.MulterError) {
+                // Multer error (e.g., file size exceeded)
+                return res.status(400).json({ success: false, message: err.message });
+            } else if (err) {
+                // Other errors
+                console.error('Error:', err);
+                return res.status(500).json({ success: false, message: 'Server error.' });
+            }
+
+            if (!req.file) {
+                return res.status(400).json({ success: false, message: 'No file provided.' });
+            }
+            const buffer = req.file.buffer;
+            user.ProfileImg = buffer;
+            await user.save();
+            return res.status(200).json({ success: true, message: 'File uploaded successfully.' });
+        } catch (error) {
+            console.error('Error:', error);
+            return res.status(500).json({ success: false, message: 'Server error.' });
+        }
+    })
+}
+
+
+//Unused function because I change to blob instead of using Clouds 
+export async function uploadSingleFile(req, res, next) {
+    upload.single('profileImage')(req, res, async (err) => {
+        const userId = req.user.UserID;
+        const user = await User.findByPk(userId)
+        try {
+            if (err instanceof multer.MulterError) {
+                // Multer error (e.g., file size exceeded)
+                return res.status(400).json({ success: false, message: err.message });
+            } else if (err) {
+                // Other errors
+                console.error('Error:', err);
+                return res.status(500).json({ success: false, message: 'Server error.' });
+            }
+
+            if (!req.file) {
+                return res.status(400).json({ success: false, message: 'No file provided.' });
+            }
+            const imageUrl = await uploadImage(req.file);
+            await user.save();
+            return res.status(200).json({ success: true, message: 'File uploaded successfully.' });
+        } catch (error) {
+            console.error('Error:', error);
+            return res.status(500).json({ success: false, message: 'Server error.' });
+        }
+    });
+};

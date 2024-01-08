@@ -25,7 +25,8 @@ const User = sequelize.define('users', {
         type: DataTypes.STRING,
     },
     ProfileImg: {
-        type: DataTypes.STRING,
+        type: DataTypes.BLOB('long'),
+        allowNull: true,
     },
     CreatedAt: {
         type: DataTypes.DATE,

@@ -27,7 +27,6 @@ passport.use(new GoogleStrategy({
                     const createdStripeCustomer = await stripe.customers.create({
                         email: profile.emails[0].value,
                     });
-                    console.log(createdStripeCustomer.id);
                     // Create the user in the database with the Stripe customer ID
                     user = await User.create({
                         Email: profile.emails[0].value,
