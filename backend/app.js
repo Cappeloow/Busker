@@ -5,13 +5,16 @@ import cors from 'cors';
 import passport from 'passport';
 import session from 'express-session';
 
-
 import productRouter from './routes/productRoute.js'
 import authRouter from './routes/authRoute.js';
 import userRouter from './routes/userRoute.js';
 import linkRouter from './routes/linkRoute.js';
 import orderRouter from './routes/orderRoute.js';
 import availabilityRouter from './routes/availabilityRoute.js';
+
+
+
+
 
 const app = express();
 app.use(express.json());
