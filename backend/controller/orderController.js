@@ -111,7 +111,6 @@ export async function getConfirmation(req, res, next) {
 
             return res.status(400).json({ errors: validationErrors });
         }
-        console.error(error);
         res.status(500).send("Error");
     }
 }

@@ -1,7 +1,8 @@
 import User from '../entities/user.js';
 import Link from '../entities/link.js';
 export async function createLink(req, res) {
-    const { userId, Icon, Title, URL } = req.body;
+    const userId = req.user.UserID;
+    const { Icon, Title, URL } = req.body;
     try {
         const newLink = await Link.create({
             Icon: Icon,
@@ -11,6 +12,17 @@ export async function createLink(req, res) {
         });
         res.status(201).json(newLink);
     } catch (error) {
+        if (error.name === 'SequelizeValidationError') {
+            const validationErrors = error.errors.map(err => ({
+                message: err.message,
+                type: err.type,
+                path: err.path,
+                value: err.value,
+            }));
+
+            return res.status(400).json({ errors: validationErrors });
+        }
+
         console.error('Error creating link:', error);
         res.status(500).send('Internal Server Error');
     }

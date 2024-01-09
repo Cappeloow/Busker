@@ -4,6 +4,7 @@ import sequelize from '../config/database.js'; // Adjust the path to your Sequel
 import Link from './link.js';
 import Order from './order.js';
 import Availability from './availability.js';
+import { isString, isNumber } from '../validation.js';
 const User = sequelize.define('users', {
     UserID: {
         type: DataTypes.UUID,
@@ -17,12 +18,21 @@ const User = sequelize.define('users', {
     },
     ArtistName: {
         type: DataTypes.STRING,
+        validate: {
+            isString: (value) => isString(value, 'ArtistName'),
+        },
     },
     Country: {
         type: DataTypes.STRING,
+        validate: {
+            isString: (value) => isString(value, 'Country'),
+        },
     },
     City: {
         type: DataTypes.STRING,
+        validate: {
+            isString: (value) => isString(value, 'City'),
+        },
     },
     ProfileImg: {
         type: DataTypes.BLOB('long'),
@@ -37,18 +47,18 @@ const User = sequelize.define('users', {
 });
 
 User.hasMany(Link, {
-    foreignKey: 'UserID', // Assuming 'UserID' is the name of the foreign key column in the 'links' table
-    onDelete: 'cascade',  // This ensures that associated links are deleted when a user is deleted
+    foreignKey: 'UserID',
+    onDelete: 'cascade',
 });
 
 User.hasMany(Order, {
-    foreignKey: 'UserID', // Assuming 'stripeId' is the name of the foreign key column in the 'orders' table
-    onDelete: 'cascade',   // This ensures that associated orders are deleted when a user is deleted
+    foreignKey: 'UserID',
+    onDelete: 'cascade',
 });
 
 User.hasMany(Availability, {
-    foreignKey: 'UserID', // Assuming 'UserID' is the name of the foreign key column in the 'links' table
-    onDelete: 'cascade',  // This ensures that associated links are deleted when a user is deleted
+    foreignKey: 'UserID',
+    onDelete: 'cascade',
 })
 sequelize.sync();
 
