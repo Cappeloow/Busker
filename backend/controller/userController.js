@@ -7,7 +7,7 @@ import multer from 'multer';
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
-const { uploadImage, retrieveImage } = useGoogleCloudStorage();
+const { uploadImage } = useGoogleCloudStorage();
 
 
 const stripe = initStripe();
@@ -42,6 +42,16 @@ export async function updateUserDetails(req, res) {
             res.status(404).send('User not found');
         }
     } catch (error) {
+        if (error.name === 'SequelizeValidationError') {
+            const validationErrors = error.errors.map(err => ({
+                message: err.message,
+                type: err.type,
+                path: err.path,
+                value: err.value,
+            }));
+
+            return res.status(400).json({ errors: validationErrors });
+        }
         res.status(500).send(error);
     }
 }
@@ -67,9 +77,9 @@ export async function getAllUsers(req, res) {
 }
 
 export async function unregisterUser(req, res) {
-    const userId = req.body.userId;
+    const userId = req.user.UserID;
     const user = await User.findOne({ UserId: userId });
-    const userOnStripe = await stripe.customers.retrieve(userId);
+    const userOnStripe = await stripe.customers.retrieve(user.stripeId);
     if (user && userOnStripe) {
         await stripe.customers.del(userOnStripe.id);
         user.destroy();
