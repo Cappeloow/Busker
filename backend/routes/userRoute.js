@@ -16,7 +16,7 @@ userRouter.put('/update/:userId', updateUserDetails);
 
 userRouter.get('/all', getAllUsers);
 
-userRouter.delete('/unregister', unregisterUser);
+userRouter.delete('/unregister', auth, unregisterUser);
 
 //userRouter.post('/uploadImg', auth, uploadSingleFile);
 

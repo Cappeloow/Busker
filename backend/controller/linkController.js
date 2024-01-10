@@ -41,7 +41,6 @@ export async function getAllLinks(req, res) {
 
 export async function deleteLink(req, res) {
     const userId = req.user.UserID;
-    console.log(req.user);
     const { linkId } = req.body;
 
     const link = await Link.findByPk(linkId);

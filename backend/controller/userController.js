@@ -77,9 +77,9 @@ export async function getAllUsers(req, res) {
 }
 
 export async function unregisterUser(req, res) {
-    const userId = req.body.userId;
+    const userId = req.user.UserID;
     const user = await User.findOne({ UserId: userId });
-    const userOnStripe = await stripe.customers.retrieve(userId);
+    const userOnStripe = await stripe.customers.retrieve(user.stripeId);
     if (user && userOnStripe) {
         await stripe.customers.del(userOnStripe.id);
         user.destroy();
