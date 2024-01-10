@@ -30,7 +30,7 @@ export async function createLink(req, res) {
 
 export async function getAllLinks(req, res) {
     try {
-        const userId = req.body.userId;
+        const userId = req.params.userId;
         const links = await Link.findAll({ where: { UserID: userId } });
         res.status(200).json(links);
     } catch (error) {
@@ -40,7 +40,9 @@ export async function getAllLinks(req, res) {
 
 
 export async function deleteLink(req, res) {
-    const { linkId, userId } = req.body;
+    const userId = req.user.UserID;
+    console.log(req.user);
+    const { linkId } = req.body;
 
     const link = await Link.findByPk(linkId);
     if (!link) {
