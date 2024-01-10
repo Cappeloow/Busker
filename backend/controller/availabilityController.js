@@ -45,22 +45,36 @@ export async function getAllAvailabilities(req, res) {
 
 
 export async function updateAvailability(req, res) {
+    const userId = req.user.UserID;
     const { availabilityId, description, date, status, bookedDateTime, location } = req.body;
     try {
-        const availability = await Availability.findByPk(availabilityId);
+        // Find the availability with the specified ID and user
+        const availability = await Availability.findOne({ where: { availabilityId: availabilityId, UserID: userId } });
 
+        // Check if the availability with the specified ID exists
         if (!availability) {
             return res.status(404).json({ message: "There is no availability with that ID" });
         }
 
+        // Check if there is any existing availability with the new date for the user
+        const existingAvailability = await Availability.findOne({ where: { date, UserID: userId } });
+
+        // If an availability for the new date already exists, return an error response
+        if (existingAvailability) {
+            return res.status(400).json({ error: 'Availability for this date already exists. Please pick a different date.' });
+        }
+
+        // Update the availability with the provided information
         availability.description = description != null ? description : availability.description;
         availability.date = date != null ? date : availability.date;
         availability.status = status != null ? status : availability.status;
         availability.location = location != null ? location : availability.location;
         availability.bookedDateTime = bookedDateTime != null ? bookedDateTime : availability.bookedDateTime;
 
+        // Save the updated availability
         await availability.save();
 
+        // Return the updated availability in the response
         res.status(200).json(availability);
     } catch (error) {
         // Check if the error is a Sequelize validation error
