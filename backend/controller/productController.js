@@ -23,3 +23,16 @@ export async function getAllProducts(req, res) {
         res.status(500).json({ error: 'Failed to fetch products' });
     }
 }
+
+
+export async function getProductById(req, res) {
+    const productId = req.params.id;
+
+    const product = await stripe.products.retrieve(productId);
+
+    const price = product.default_price;
+    const priceDetails = await stripe.prices.retrieve(price);
+    product.price = priceDetails.unit_amount / 100;
+
+    res.status(200).json(product);
+}
