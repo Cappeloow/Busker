@@ -61,6 +61,7 @@ export async function getSpecificUser(req, res) {
     User.findOne({ UserId: userId })
         .then(user => {
             if (user) {
+                res.setHeader('Content-Type', 'image/jpeg');
                 res.send(user);
             } else {
                 res.status(404).send('User not found');
