@@ -130,3 +130,36 @@ export const getSpecificProduct = async (id: string) => {
    *   A   A    V    I  L      A   A  B   B   I  L       I    T   I  E          S
    *   A   A    V   III LLLLL  A   A  BBBBB  III LLLLL  III    T   I  EEEE SSSS
    */
+
+    
+      export const createAvailability = async () => {
+        const inputData = {
+          "date": "2022-01-04",
+          "description":"@Restaurant Bingo"
+        }
+
+        const response = await fetch(`http://localhost:5000/availability/create`, {
+          method: "POST",
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          }, 
+          credentials: 'include',
+          body: JSON.stringify(inputData)
+        })
+        console.log(response);
+        if (!response.ok){
+          return 'Something went wrong';
+        }
+
+        const data  = await response.json();
+       }
+
+
+
+       export const getAllAvailabilities = async (id:string) => {
+        const response = await fetch(`${BUSKER_BACKEND_URL}/availability/${id}`);
+        const data = await response.json();
+        console.log(data);
+        return data;
+       }

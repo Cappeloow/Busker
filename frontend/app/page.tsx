@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { getAllProducts, getSpecificProduct, getAllUsers, getUserById, getUserImg, getAllLinks, createLink } from "./services/services";
+import { getAllProducts, getSpecificProduct, getAllUsers, getUserById, getUserImg, getAllLinks, createLink, createAvailability, getAllAvailabilities } from "./services/services";
 import Image from "next/image";
 import { BUSKER_BACKEND_URL } from "./services/services";
 function UserImage( id: string) {
@@ -26,6 +26,8 @@ export default function Home() {
   // const product = await getSpecificProduct("prod_PHYZ4G9gdAh56r")
   // const user = await getUserById("237ae2c7-8e56-4383-83ac-d8ac52c5be5e")
   // const links = getLinks("237ae2c7-8e56-4383-83ac-d8ac52c5be5e");
+    // const availabilities = getAllAvailabilities("237ae2c7-8e56-4383-83ac-d8ac52c5be5e");
+
   // TODO:
 
  
@@ -41,7 +43,10 @@ export default function Home() {
         Hello
       </button>
       <button onClick={() => createLink()}>
-        post function
+        post Link
+      </button>
+      <button onClick={() => createAvailability()}>
+      post availability
       </button>
     </main>
   )
