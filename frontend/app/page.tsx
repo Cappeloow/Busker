@@ -1,19 +1,48 @@
-import { getAllProducts, getSpecificProduct, getAllUsers, getUserById } from "./services/services";
+"use client";
+import { useEffect, useState } from "react";
+import { getAllProducts, getSpecificProduct, getAllUsers, getUserById, getUserImg, getAllLinks, createLink } from "./services/services";
 import Image from "next/image";
-export default async function Home() {
-  const users = await getAllUsers();
-  const products = await getAllProducts();
-  const product = await getSpecificProduct("prod_PHYZ4G9gdAh56r")
-  const user = await getUserById("237ae2c7-8e56-4383-83ac-d8ac52c5be5e")
+import { BUSKER_BACKEND_URL } from "./services/services";
+function UserImage( id: string) {
+  const [url, setUrl] = useState<string | null>(null);
+  useEffect(() => {
+    (async () => {
+      const image = await getUserImg(id);
+      setUrl(image);
+    })();
+    return () => {
+      if (url) URL.revokeObjectURL(url);
+    };
+  }, [id]);
 
+  if (!url) return null;
+  // next/image doesn't offer any benefits in this case
+  return <Image src={url} alt="test" width={500} height={500} />;
+}
+
+export default function Home() {
+  // const users = await getAllUsers();
+  // const products = await getAllProducts();
+  // const product = await getSpecificProduct("prod_PHYZ4G9gdAh56r")
+  // const user = await getUserById("237ae2c7-8e56-4383-83ac-d8ac52c5be5e")
+  // const links = getLinks("237ae2c7-8e56-4383-83ac-d8ac52c5be5e");
   // TODO:
 
-
+ 
+  const img = UserImage("237ae2c7-8e56-4383-83ac-d8ac52c5be5e");
   // FIX DATABASE TABLE ATTRIBUTES SO THEY ARE CAMELCASED
   // LOOK OVER THE USER IMAGE, HOW TO GET IT IN THE BEST POSSIBLE WAY?
-  console.log(user);
   return (
     <main>
+      {img ? img : "Loading..."}
+      <button onClick={() => {
+        window.location.href = `${BUSKER_BACKEND_URL}/auth/google`
+      }}>
+        Hello
+      </button>
+      <button onClick={() => createLink()}>
+        post function
+      </button>
     </main>
   )
 }

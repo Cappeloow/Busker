@@ -1,4 +1,4 @@
-const BACKEND_URL =  process.env.BUSKER_BACKEND_URL;
+export const BUSKER_BACKEND_URL = "http://localhost:5000"
 
 /*
    *   PPP    RRRR   OOO   DDDD  U   U  CCCC  TTTTT  SSSS
@@ -10,18 +10,17 @@ const BACKEND_URL =  process.env.BUSKER_BACKEND_URL;
 
 
 export const getAllProducts = async () => {
-    const response = await fetch(`${BACKEND_URL}/product/all`);
+    const response = await fetch(`${BUSKER_BACKEND_URL}/product/all`);
     const data = await response.json();
     return data;
 }
 
 
 export const getSpecificProduct = async (id: string) => {
-    const response = await fetch(`${BACKEND_URL}/product/${id}`);
+    const response = await fetch(`${BUSKER_BACKEND_URL}/product/${id}`);
     const data = await response.json();
     return data;
 }
-
 
 
  /*
@@ -33,17 +32,36 @@ export const getSpecificProduct = async (id: string) => {
    */
 
  export const getAllUsers = async () => {
-    const response = await fetch(`${BACKEND_URL}/user/all`);
+    const response = await fetch(`${BUSKER_BACKEND_URL}/user/all`);
     const data = await response.json();
     return data;
  } 
 
 
  export const getUserById = async (id: string) => {
-  const response = await fetch(`${BACKEND_URL}/user/${id}`);
+  const response = await fetch(`${BUSKER_BACKEND_URL}/user/${id}`);
   const data = response.json();
   return data;
  }
+
+ export const getUserImg = async (id: string): Promise<string> => {
+  try {
+    const response = await fetch(`${BUSKER_BACKEND_URL}/user/${id}/profileImg`);
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    const data = await response.blob();
+    const image = URL.createObjectURL(data)
+  
+    return image;
+  } catch (error:any) {
+    console.error('Error fetching user image:', error.message);
+    throw error; // Re-throw the error to handle it in the calling code
+  }
+};
+
+
 
 
 
@@ -66,9 +84,44 @@ export const getSpecificProduct = async (id: string) => {
    *   LLLLL  III   N   N K   K SSSS
    */
 
+     export const getAllLinks =  async (id: string): Promise<[]>=> {
+      const response = await fetch(`${BUSKER_BACKEND_URL}/link/${id}`)
+      const data = await response.json();
+      console.log(data);
+      return data;
+     }
 
 
-
+     export const createLink = async () => {
+      const object = {
+        Icon: "IG",
+        Title: "Instagram",
+        URL: "https://example.com"
+      };
+    
+      try {
+        const response = await fetch(`${BUSKER_BACKEND_URL}/link/create`, {
+          method: 'POST',
+          body: JSON.stringify(object),
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          credentials: 'include',
+        });
+    
+        if (!response.ok) {
+          // Handle error, e.g., throw an exception or log the error
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+    
+        const data = await response.json();
+        console.log('Link created successfully:', data);
+      } catch (error) {
+        console.error('Error creating link:', error);
+      }
+    };
+    
 
        /*
    *   AAAAA  V   V III L      AAAAA  BBBBB  III L      III TTTTT III EEEE  SSSS
