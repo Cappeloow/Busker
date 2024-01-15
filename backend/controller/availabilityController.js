@@ -4,15 +4,14 @@ import Availability from "../entities/availability.js";
 export async function createAvailability(req, res) {
     const userId = req.user.UserID;
     const { date, description } = req.body;
+    const availabilityExist = await Availability.findOne({ where: { date: date, UserID: userId } });
+    if (availabilityExist) {
+        return res.status(403).json({ message: "You are already avaiable at that date" })
+    }
+
     try {
-        const availabilityExist = await Availability.findOne({ where: { date: date, UserID: userId } });
-        if (availabilityExist) {
-            res.status(404).json({ message: "You are already avaiable at that date" })
-            return;
-        }
 
         const availability = await Availability.create({ date: date, description: description, UserID: userId });
-
 
         res.status(200).json(availability);
     } catch (error) {

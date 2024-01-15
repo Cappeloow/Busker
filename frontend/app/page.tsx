@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { getAllProducts, getSpecificProduct, getAllUsers, getUserById, getUserImg, getAllLinks, createLink, createAvailability, getAllAvailabilities } from "./services/services";
+import { getAllProducts, getSpecificProduct, getAllUsers, getUserById, getUserImg, getAllLinks, createLink, createAvailability, getAllAvailabilities, updateAvailability } from "./services/services";
 import Image from "next/image";
 import { BUSKER_BACKEND_URL } from "./services/services";
 function UserImage( id: string) {
@@ -29,13 +29,18 @@ export default function Home() {
     // const availabilities = getAllAvailabilities("237ae2c7-8e56-4383-83ac-d8ac52c5be5e");
 
   // TODO:
-
- 
+  // updateAvailability();
+  // createAvailability();
   const img = UserImage("237ae2c7-8e56-4383-83ac-d8ac52c5be5e");
   // FIX DATABASE TABLE ATTRIBUTES SO THEY ARE CAMELCASED
   // LOOK OVER THE USER IMAGE, HOW TO GET IT IN THE BEST POSSIBLE WAY?
   return (
     <main>
+      {/* {availabilities.map((availabilities) => {
+        <div key={availabilities.}>
+
+        </div>
+      }} */}
       {img ? img : "Loading..."}
       <button onClick={() => {
         window.location.href = `${BUSKER_BACKEND_URL}/auth/google`
@@ -46,7 +51,7 @@ export default function Home() {
         post Link
       </button>
       <button onClick={() => createAvailability()}>
-      post availability
+        post availability
       </button>
     </main>
   )
