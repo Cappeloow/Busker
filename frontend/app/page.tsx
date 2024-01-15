@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { getAllProducts, getSpecificProduct, getAllUsers, getUserById, getUserImg, getAllLinks, createLink, createAvailability, getAllAvailabilities, updateAvailability } from "./services/services";
+import { generateQRCode, getAllProducts, getSpecificProduct, getAllUsers, getUserById, getUserImg, getAllLinks, createLink, createAvailability, getAllAvailabilities, updateAvailability } from "./services/services";
 import Image from "next/image";
 import { BUSKER_BACKEND_URL } from "./services/services";
 function UserImage( id: string) {
@@ -28,6 +28,8 @@ export default function Home() {
   // const links = getLinks("237ae2c7-8e56-4383-83ac-d8ac52c5be5e");
     // const availabilities = getAllAvailabilities("237ae2c7-8e56-4383-83ac-d8ac52c5be5e");
 
+   const QRcode = generateQRCode("237ae2c7-8e56-4383-83ac-d8ac52c5be5e");
+   console.log(QRcode);
   // TODO:
   // updateAvailability();
   // createAvailability();
