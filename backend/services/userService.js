@@ -5,8 +5,7 @@ export default async function generateQRCode(id) {
     const canvas = createCanvas(300, 300);
     try {
         await QRCode.toCanvas(canvas, userURL, { errorCorrectionLevel: 'H' });
-        const icon = await loadImage('./icons/music-player.png');
-        console.log(icon);
+        const icon = await loadImage('./icons/check.png');
         const x = (canvas.width - icon.width) / 2
         const y = (canvas.height - icon.height) / 2
         const context = canvas.getContext('2d');
