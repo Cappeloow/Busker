@@ -19,7 +19,7 @@ export async function getUserQRCode(req, res) {
     const userId = req.params.userId;
     const userQRCode = await generateQRCode(userId);
     if (userQRCode) {
-        res.send(`<img src="${userQRCode}" alt="User QR Code">`);
+        res.status(200).json(userQRCode);
     } else {
         res.status(500).send('Error generating QR code');
     }

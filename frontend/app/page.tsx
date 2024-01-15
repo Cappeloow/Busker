@@ -26,14 +26,13 @@ export default function Home() {
   // const product = await getSpecificProduct("prod_PHYZ4G9gdAh56r")
   // const user = await getUserById("237ae2c7-8e56-4383-83ac-d8ac52c5be5e")
   // const links = getLinks("237ae2c7-8e56-4383-83ac-d8ac52c5be5e");
-    // const availabilities = getAllAvailabilities("237ae2c7-8e56-4383-83ac-d8ac52c5be5e");
+  // const availabilities = getAllAvailabilities("237ae2c7-8e56-4383-83ac-d8ac52c5be5e");
 
-   const QRcode = generateQRCode("237ae2c7-8e56-4383-83ac-d8ac52c5be5e");
-   console.log(QRcode);
   // TODO:
   // updateAvailability();
   // createAvailability();
   const img = UserImage("237ae2c7-8e56-4383-83ac-d8ac52c5be5e");
+  const QR = generateQRCode("237ae2c7-8e56-4383-83ac-d8ac52c5be5e");
   // FIX DATABASE TABLE ATTRIBUTES SO THEY ARE CAMELCASED
   // LOOK OVER THE USER IMAGE, HOW TO GET IT IN THE BEST POSSIBLE WAY?
   return (

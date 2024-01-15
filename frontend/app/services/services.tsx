@@ -64,8 +64,9 @@ export const getSpecificProduct = async (id: string) => {
 
 export const generateQRCode = async (id:string) =>  {
   try {
-    const response = await fetch(`${BUSKER_BACKEND_URL}/user/qrCode/${id}`);
-    const data = response.json();
+    const response = await fetch(`${BUSKER_BACKEND_URL}/user/qrCode/${id}`)
+    const data = await response.json();
+    console.log(data);
     return data;
   } catch (error:any) {
     console.error('Error fetching user image:', error.message);
