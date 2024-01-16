@@ -66,7 +66,6 @@ export const generateQRCode = async (id:string) =>  {
   try {
     const response = await fetch(`${BUSKER_BACKEND_URL}/user/qrCode/${id}`)
     const data = await response.json();
-    console.log(data);
     return data;
   } catch (error:any) {
     console.error('Error fetching user image:', error.message);
@@ -95,8 +94,6 @@ export const updateUserDetails = async () => {
 }
 
 export const uploadImage = async (formData: FormData) => {
-  console.log(formData); 
-
   // Remove the 'Content-Type' header and stringify the body
   const response = await fetch(`${BUSKER_BACKEND_URL}/user/uploadProfileImg`, {
     method: "POST",
@@ -146,6 +143,21 @@ export const uploadImage = async (formData: FormData) => {
 
   }
 
+  export const getAllUserOrders = async () => {
+    const response = await fetch(`${BUSKER_BACKEND_URL}/order`, 
+    { 
+    method: 'GET', 
+    credentials:'include',
+    headers:{
+      'Accept': 'application/json',  
+      'Content-Type': 'application/json',
+    }
+  })
+
+  const data = await response.json();
+  return data;
+  }
+
      /*
    *   L      III   N   N K   K SSSS
    *   L       I    NN  N K  K  S
@@ -157,7 +169,6 @@ export const uploadImage = async (formData: FormData) => {
      export const getAllLinks =  async (id: string): Promise<[]>=> {
       const response = await fetch(`${BUSKER_BACKEND_URL}/link/${id}`)
       const data = await response.json();
-      console.log(data);
       return data;
      }
 
@@ -219,7 +230,6 @@ export const uploadImage = async (formData: FormData) => {
           credentials: 'include',
         })
         if (!response.ok){
-          console.log(response);
           return 'Something went wrong';
         }
 
@@ -252,6 +262,5 @@ export const uploadImage = async (formData: FormData) => {
        export const getAllAvailabilities = async (id:string) => {
         const response = await fetch(`${BUSKER_BACKEND_URL}/availability/${id}`);
         const data = await response.json();
-        console.log(data);
         return data;
        }
