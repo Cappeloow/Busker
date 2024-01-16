@@ -19,17 +19,16 @@ export async function getUserQRCode(req, res) {
     const userId = req.params.userId;
     const userQRCode = await generateQRCode(userId);
     if (userQRCode) {
-        res.send(`<img src="${userQRCode}" alt="User QR Code">`);
+        res.status(200).json(userQRCode);
     } else {
         res.status(500).send('Error generating QR code');
     }
 }
 
 export async function updateUserDetails(req, res) {
-    const userId = req.params.userId;
     const userDetails = req.body;
     try {
-        const user = await User.findOne({ UserId: userId });
+        const user = await User.findOne({ UserID: req.user.UserID });
         if (user) {
             user.ArtistName = userDetails.artistName != null ? userDetails.artistName : user.ArtistName;
             user.Country = userDetails.country != null ? userDetails.country : user.Country;
