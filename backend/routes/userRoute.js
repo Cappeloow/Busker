@@ -11,7 +11,7 @@ userRouter.get('/hello', sayHello);
 
 userRouter.get('/qrcode/:userId', getUserQRCode)
 
-userRouter.put('/update/:userId', updateUserDetails);
+userRouter.put('/update', auth, updateUserDetails);
 
 
 userRouter.get('/all', getAllUsers);

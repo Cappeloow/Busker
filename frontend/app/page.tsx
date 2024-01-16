@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { generateQRCode, getAllProducts, getSpecificProduct, getAllUsers, getUserById, getUserImg, getAllLinks, createLink, createAvailability, getAllAvailabilities, updateAvailability } from "./services/services";
+import {updateUserDetails, generateQRCode, getAllProducts, getSpecificProduct, getAllUsers, getUserById, getUserImg, getAllLinks, createLink, createAvailability, getAllAvailabilities, updateAvailability } from "./services/services";
 import Image from "next/image";
 import { BUSKER_BACKEND_URL } from "./services/services";
 function UserImage( id: string) {
@@ -32,6 +32,7 @@ export default function Home() {
   // updateAvailability();
   // createAvailability();
   const img = UserImage("237ae2c7-8e56-4383-83ac-d8ac52c5be5e");
+  updateUserDetails();
   // FIX DATABASE TABLE ATTRIBUTES SO THEY ARE CAMELCASED
   // LOOK OVER THE USER IMAGE, HOW TO GET IT IN THE BEST POSSIBLE WAY?
   return (

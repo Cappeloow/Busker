@@ -73,6 +73,27 @@ export const generateQRCode = async (id:string) =>  {
   }
 }
 
+
+export const updateUserDetails = async () => {
+  const userDetails = {
+    artistName:"Casper Mazzoreti",
+  }
+  const response = await fetch(`${BUSKER_BACKEND_URL}/user/update`,
+  {
+    method: "PUT",
+    headers:{
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    },
+    credentials: 'include',
+    body: JSON.stringify(userDetails)
+  }
+  )
+  const data = await response.json();
+  console.log(data);
+
+}
+
 export const uploadImage = async (formData: FormData) => {
   console.log(formData); 
 
