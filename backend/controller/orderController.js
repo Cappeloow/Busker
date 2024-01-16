@@ -27,8 +27,8 @@ export async function stripeCheckout(req, res, next) {
             customer: user.stripeId, // UUID OR customer id?
             mode: "payment",
             allow_promotion_codes: true,
-            success_url: `${process.env.BUSKER_URL}confirmation`,
-            cancel_url: process.env.BUSKER_URL,
+            success_url: `${process.env.BUSKER_FRONTEND_URL}/confirmation`,
+            cancel_url: process.env.BUSKER_FRONTEND_URL,
         })
         res.status(200).json({ url: session.url, id: session.id });
     }

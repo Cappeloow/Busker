@@ -120,7 +120,31 @@ export const uploadImage = async (formData: FormData) => {
    *   OOO   R   R DDDD  EEEE  R   R SSSS
    */
 
+  export const createOrder = async () => {
+    const orderItems = [
+      {
+        "name": "Busker QR Sign",
+        "description": "This is your unique Busker Sign. When your out on the street och playing on a Pub, do not forget to bring your sign in order to really connect with your fans!",
+        "price": 199,
+        "quantity": 2
+      },
+  ]
+  
+  const response = await fetch(`${BUSKER_BACKEND_URL}/order/create-checkout-session`, {
+    method: 'POST',
+    body: JSON.stringify(orderItems),
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    },
+    credentials: 'include',
+  })
 
+  const data = await response.json();
+
+  console.log(data);
+
+  }
 
      /*
    *   L      III   N   N K   K SSSS
