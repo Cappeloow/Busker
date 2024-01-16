@@ -73,6 +73,19 @@ export const generateQRCode = async (id:string) =>  {
   }
 }
 
+export const uploadImage = async (formData: FormData) => {
+  console.log(formData); 
+
+  // Remove the 'Content-Type' header and stringify the body
+  const response = await fetch(`${BUSKER_BACKEND_URL}/user/uploadProfileImg`, {
+    method: "POST",
+    body: formData,
+    credentials: 'include',
+  });
+  console.log(await response.json());
+
+  // Rest of your code...
+};
 
 
 

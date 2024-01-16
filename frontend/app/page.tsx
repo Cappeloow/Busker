@@ -32,7 +32,6 @@ export default function Home() {
   // updateAvailability();
   // createAvailability();
   const img = UserImage("237ae2c7-8e56-4383-83ac-d8ac52c5be5e");
-  const QR = generateQRCode("237ae2c7-8e56-4383-83ac-d8ac52c5be5e");
   // FIX DATABASE TABLE ATTRIBUTES SO THEY ARE CAMELCASED
   // LOOK OVER THE USER IMAGE, HOW TO GET IT IN THE BEST POSSIBLE WAY?
   return (
