@@ -2,16 +2,16 @@ import { where } from "sequelize";
 import Availability from "../entities/availability.js";
 
 export async function createAvailability(req, res) {
-    const userId = req.user.UserID;
+    const userId = req.user.userId;
     const { date, description } = req.body;
-    const availabilityExist = await Availability.findOne({ where: { date: date, UserID: userId } });
+    const availabilityExist = await Availability.findOne({ where: { date: date, userId: userId } });
     if (availabilityExist) {
         return res.status(403).json({ message: "You are already avaiable at that date" })
     }
 
     try {
 
-        const availability = await Availability.create({ date: date, description: description, UserID: userId });
+        const availability = await Availability.create({ date: date, description: description, userId: userId });
 
         res.status(200).json(availability);
     } catch (error) {
@@ -34,7 +34,7 @@ export async function createAvailability(req, res) {
 export async function getAllAvailabilities(req, res) {
     const id = req.params.id;
     try {
-        const availability = await Availability.findAll({ where: { UserID: id } });
+        const availability = await Availability.findAll({ where: { userId: id } });
         res.status(200).json(availability)
     }
     catch (error) {
@@ -44,11 +44,11 @@ export async function getAllAvailabilities(req, res) {
 
 
 export async function updateAvailability(req, res) {
-    const userId = req.user.UserID;
+    const userId = req.user.userId;
     const { availabilityId, description, date, status, bookedDateTime, location } = req.body;
     try {
         // Find the availability with the specified ID and user
-        const availability = await Availability.findOne({ where: { availabilityId: availabilityId, UserID: userId } });
+        const availability = await Availability.findOne({ where: { availabilityId: availabilityId, userId: userId } });
 
         // Check if the availability with the specified ID exists
         if (!availability) {
@@ -56,7 +56,7 @@ export async function updateAvailability(req, res) {
         }
 
         // Check if there is any existing availability with the new date for the user
-        const existingAvailability = await Availability.findOne({ where: { date, UserID: userId } });
+        const existingAvailability = await Availability.findOne({ where: { date, userId: userId } });
 
         // If an availability for the new date already exists, return an error response
         if (existingAvailability) {

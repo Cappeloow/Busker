@@ -28,12 +28,12 @@ export async function getUserQRCode(req, res) {
 export async function updateUserDetails(req, res) {
     const userDetails = req.body;
     try {
-        const user = await User.findOne({ UserID: req.user.UserID });
+        const user = await User.findOne({ userId: req.user.userId });
         if (user) {
-            user.ArtistName = userDetails.artistName != null ? userDetails.artistName : user.ArtistName;
-            user.Country = userDetails.country != null ? userDetails.country : user.Country;
-            user.ProfileImg = userDetails.profileImg != null ? userDetails.profileImg : user.ProfileImg;
-            user.City = userDetails.city != null ? userDetails.city : user.City;
+            user.artistName = userDetails.artistName != null ? userDetails.artistName : user.artistName;
+            user.country = userDetails.country != null ? userDetails.country : user.country;
+            user.profileImg = userDetails.profileImg != null ? userDetails.profileImg : user.profileImg;
+            user.city = userDetails.city != null ? userDetails.city : user.city;
 
             await user.save();
             res.status(200).send(user);
@@ -57,7 +57,7 @@ export async function updateUserDetails(req, res) {
 
 export async function getSpecificUser(req, res) {
     const userId = req.params.userId;
-    User.findOne({ UserId: userId })
+    User.findOne({ userId: userId })
         .then(user => {
             if (user) {
                 res.setHeader('Content-Type', 'image/jpeg');
@@ -73,17 +73,16 @@ export async function getSpecificUser(req, res) {
 
 export async function getAllUsers(req, res) {
     const users = await User.findAll();
-    console.log(users.length);
     const simplifiedUsers = users.map(user => ({
-        id: user.UserID,
-        username: user.ArtistName,
+        id: user.userId,
+        username: user.artistName,
     }));
     res.status(200).send(simplifiedUsers);
 }
 
 export async function unregisterUser(req, res) {
-    const userId = req.user.UserID;
-    const user = await User.findOne({ UserId: userId });
+    const userId = req.user.userId;
+    const user = await User.findOne({ userId: userId });
     const userOnStripe = await stripe.customers.retrieve(user.stripeId);
     if (user && userOnStripe) {
         await stripe.customers.del(userOnStripe.id);
@@ -100,12 +99,12 @@ export async function getSpecificUserProfileImg(req, res) {
         res.status(404);
     }
     res.setHeader('Content-Type', 'image/jpeg');
-    res.status(200).send(user.ProfileImg);
+    res.status(200).send(user.profileImg);
 }
 
 export async function uploadProfileImage(req, res) {
     upload.single('profileImage')(req, res, async (err) => {
-        const userId = req.user.UserID;
+        const userId = req.user.userId;
         const user = await User.findByPk(userId)
         try {
             if (err instanceof multer.MulterError) {
@@ -121,7 +120,7 @@ export async function uploadProfileImage(req, res) {
                 return res.status(400).json({ success: false, message: 'No file provided.' });
             }
             const buffer = req.file.buffer;
-            user.ProfileImg = buffer;
+            user.profileImg = buffer;
             await user.save();
             return res.status(200).json({ success: true, message: 'File uploaded successfully.' });
         } catch (error) {
@@ -135,7 +134,7 @@ export async function uploadProfileImage(req, res) {
 //Unused function because I change to blob instead of using Clouds 
 export async function uploadSingleFile(req, res, next) {
     upload.single('profileImage')(req, res, async (err) => {
-        const userId = req.user.UserID;
+        const userId = req.user.userId;
         const user = await User.findByPk(userId)
         try {
             if (err instanceof multer.MulterError) {

@@ -4,28 +4,28 @@ import sequelize from '../config/database.js'; // Adjust the path to your Sequel
 import OrderItem from './orderItem.js';
 import { isNumber } from '../validation.js';
 const Order = sequelize.define('orders', {
-    OrderID: {
+    orderId: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
     },
-    TotalPrice: {
+    totalPrice: {
         type: DataTypes.DECIMAL(10, 2),
         validate: {
             isNumber: (value) => isNumber(value, 'TotalPrice'),
         },
     },
-    Status: {
+    status: {
         type: DataTypes.ENUM('Pending', 'Processing', 'Shipped', 'Delivered'),
         defaultValue: 'Pending',
     },
-    SessionID: {
+    sessionId: {
         type: DataTypes.STRING,
     },
 });
 
 Order.hasMany(OrderItem, {
-    foreignKey: 'OrderID',
+    foreignKey: 'orderId',
     onDelete: 'cascade',
 })
 export default Order;

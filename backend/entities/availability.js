@@ -4,10 +4,9 @@ import sequelize from '../config/database.js';
 import { isString } from '../validation.js';
 const Availability = sequelize.define('availability', {
   availabilityId: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.UUID,
+    defaultValue: DataTypes.UUIDV4,
     primaryKey: true,
-    autoIncrement: true,
-    allowNull: false,
   },
 
   date: {

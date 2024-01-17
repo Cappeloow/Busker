@@ -9,7 +9,7 @@ const Page = () => {
   useEffect(() => {
     const fetchQRCode = async () => {
       try {
-        const data = await generateQRCode("237ae2c7-8e56-4383-83ac-d8ac52c5be5e");
+        const data = await generateQRCode("229ec007-f043-41dd-89cb-44e7712b2268");
         setQRCode(data); // assuming data is the base64-encoded image
       } catch (error:any) {
         console.error('Error fetching QR code:', error.message);
