@@ -32,7 +32,11 @@ export const getSpecificProduct = async (id: string) => {
    */
 
  export const getAllUsers = async () => {
-    const response = await fetch(`${BUSKER_BACKEND_URL}/user/all`);
+    const response = await fetch(`${BUSKER_BACKEND_URL}/user/all`,{
+      next:{
+        revalidate: 10
+      }
+    });
     const data = await response.json();
     console.log(data);
     return data;

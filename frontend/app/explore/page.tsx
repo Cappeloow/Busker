@@ -9,8 +9,8 @@ export default async function Page ({}: Props) {
   return (
     <div>
         {users.map((user: { UserID: React.Key | null | undefined; }) => (
-            <div key={user.UserID}>
-                <Link href={`/user/${user.UserID}`}>{user.ArtistName}</Link>
+            <div key={user.id}>
+                <Link href={`/user/${user.id}`}>{user.username}</Link>
             </div>
         ))}
     </div>
