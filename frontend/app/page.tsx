@@ -31,10 +31,10 @@ export default function Home() {
   // TODO:
   // updateAvailability();
   // createAvailability();
-  const img = UserImage("237ae2c7-8e56-4383-83ac-d8ac52c5be5e");
+  const img = UserImage("229ec007-f043-41dd-89cb-44e7712b2268");
   // FIX DATABASE TABLE ATTRIBUTES SO THEY ARE CAMELCASED
   // LOOK OVER THE USER IMAGE, HOW TO GET IT IN THE BEST POSSIBLE WAY?
-  const orders = getAllUserOrders();
+  // const orders = getAllUserOrders();
   return (
     <main>
       {/* {availabilities.map((availabilities) => {

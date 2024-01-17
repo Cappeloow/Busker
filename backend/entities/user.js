@@ -6,39 +6,39 @@ import Order from './order.js';
 import Availability from './availability.js';
 import { isString, isNumber } from '../validation.js';
 const User = sequelize.define('users', {
-    UserID: {
+    userId: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
     },
-    Email: {
+    email: {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true,
     },
-    ArtistName: {
+    artistName: {
         type: DataTypes.STRING,
         validate: {
             isString: (value) => isString(value, 'ArtistName'),
         },
     },
-    Country: {
+    country: {
         type: DataTypes.STRING,
         validate: {
             isString: (value) => isString(value, 'Country'),
         },
     },
-    City: {
+    city: {
         type: DataTypes.STRING,
         validate: {
             isString: (value) => isString(value, 'City'),
         },
     },
-    ProfileImg: {
+    profileImg: {
         type: DataTypes.BLOB('long'),
         allowNull: true,
     },
-    CreatedAt: {
+    createdAt: {
         type: DataTypes.DATE,
     },
     stripeId: {
@@ -47,17 +47,17 @@ const User = sequelize.define('users', {
 });
 
 User.hasMany(Link, {
-    foreignKey: 'UserID',
+    foreignKey: 'userId',
     onDelete: 'cascade',
 });
 
 User.hasMany(Order, {
-    foreignKey: 'UserID',
+    foreignKey: 'userId',
     onDelete: 'cascade',
 });
 
 User.hasMany(Availability, {
-    foreignKey: 'UserID',
+    foreignKey: 'userId',
     onDelete: 'cascade',
 })
 sequelize.sync();

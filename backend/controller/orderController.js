@@ -24,7 +24,7 @@ export async function stripeCheckout(req, res, next) {
     try {
         const session = await stripe.checkout.sessions.create({
             line_items,
-            customer: user.stripeId, // UUID OR customer id?
+            customer: user.stripeId,
             mode: "payment",
             allow_promotion_codes: true,
             success_url: `${process.env.BUSKER_FRONTEND_URL}/confirmation`,
@@ -46,22 +46,22 @@ export async function getConfirmation(req, res, next) {
         const session = await stripe.checkout.sessions.retrieve(id);
         const lineItems = await stripe.checkout.sessions.listLineItems(id);
 
-        orderInDb = await Order.findOne({ where: { SessionID: session.id } });
+        orderInDb = await Order.findOne({ where: { sessionId: session.id } });
 
         if (!orderInDb) {
             const order = await Order.create({
-                UserID: req.user.UserID,
-                TotalPrice: session.amount_total / 100,
-                SessionID: session.id,
+                userId: req.user.userId,
+                totalPrice: session.amount_total / 100,
+                sessionId: session.id,
             });
 
             const orderItemsArray = await Promise.all(lineItems.data.map(async (lineItem) => {
                 // Create OrderItem
                 const createdOrderItem = await OrderItem.create({
-                    Price: lineItem.amount_total / 100,
-                    Quantity: lineItem.quantity,
-                    ProductID: lineItem.price.product,
-                    OrderID: order.dataValues.OrderID
+                    price: lineItem.amount_total / 100,
+                    quantity: lineItem.quantity,
+                    productId: lineItem.price.product,
+                    orderId: order.dataValues.orderId
                 });
                 const updatedOrderItem = {
                     title: lineItem.description,
@@ -71,7 +71,7 @@ export async function getConfirmation(req, res, next) {
                 return updatedOrderItem; //Updated OrderItem
             }));
             const sendOrder = {
-                orderId: order.dataValues.OrderID,
+                orderId: order.dataValues.orderId,
                 totalPrice: session.amount_total / 100,
                 currency: session.currency,
                 orderItemsArray
@@ -80,10 +80,10 @@ export async function getConfirmation(req, res, next) {
         } else {
             const orderItemsArray = await Promise.all(lineItems.data.map(async (lineItem) => {
                 const createdOrderItem = ({
-                    Price: lineItem.amount_total / 100,
-                    Quantity: lineItem.quantity,
-                    ProductID: lineItem.price.product,
-                    OrderID: orderInDb.dataValues.OrderID
+                    price: lineItem.amount_total / 100,
+                    quantity: lineItem.quantity,
+                    productId: lineItem.price.product,
+                    orderId: orderInDb.dataValues.orderId
                 });
                 const updatedOrderItem = {
                     title: lineItem.description,
@@ -93,7 +93,7 @@ export async function getConfirmation(req, res, next) {
                 return updatedOrderItem; //Store the updated orderItem in the array
             }));
             const sendOrder = {
-                orderId: orderInDb.dataValues.OrderID,
+                orderId: orderInDb.dataValues.orderId,
                 totalPrice: session.amount_total / 100,
                 currency: session.currency,
                 orderItemsArray
@@ -121,11 +121,11 @@ export async function getOrder(req, res) {
     const user = req.user;
 
     try {
-        const orders = await Order.findAll({ where: { UserID: user.dataValues.UserID } });
+        const orders = await Order.findAll({ where: { userId: user.dataValues.userId } });
 
         const ordersWithItems = await Promise.all(
             orders.map(async (order) => {
-                const orderItems = await OrderItem.findAll({ where: { OrderID: order.OrderID } });
+                const orderItems = await OrderItem.findAll({ where: { orderId: order.orderId } });
                 return { order, orderItems };
             })
         );

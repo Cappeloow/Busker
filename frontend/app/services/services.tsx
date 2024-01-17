@@ -180,9 +180,9 @@ export const uploadImage = async (formData: FormData) => {
 
      export const createLink = async () => {
       const object = {
-        Icon: "IG",
-        Title: "Instagram",
-        URL: "https://example.com"
+        icon: "IG",
+        title: "Instagram",
+        url: "https://example.com"
       };
     
       try {

@@ -3,21 +3,21 @@ import { DataTypes } from 'sequelize';
 import sequelize from '../config/database.js'; // Adjust the path to your Sequelize configuration
 import { isNumber } from '../validation.js';
 const OrderItem = sequelize.define('orderItems', {
-    OrderItemID: {
+    orderItemId: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
     },
-    ProductID: {
+    productId: {
         type: DataTypes.UUID,
     },
-    Price: {
+    price: {
         type: DataTypes.DECIMAL(10, 2),
         validate: {
             isNumber: (value) => isNumber(value, 'Quantity'),
         }
     },
-    Quantity: {
+    quantity: {
         type: DataTypes.INTEGER,
         validate: {
             isNumber: (value) => isNumber(value, 'Quantity'),

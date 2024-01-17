@@ -16,7 +16,7 @@ passport.use(new GoogleStrategy({
     async function (request, accessToken, refreshToken, profile, done) {
         try {
             // looking for a user in the db with the same email address as we are trying to authenticate with on Google auth.
-            let user = await User.findOne({ where: { Email: profile.emails[0].value } });
+            let user = await User.findOne({ where: { email: profile.emails[0].value } });
 
             if (!user) {
                 // Retrieve the Stripe customer ID based on the email address
@@ -29,9 +29,9 @@ passport.use(new GoogleStrategy({
                     });
                     // Create the user in the database with the Stripe customer ID
                     user = await User.create({
-                        Email: profile.emails[0].value,
-                        ArtistName: profile.displayName ? profile.displayName : null,
-                        CreatedAt: new Date(),
+                        email: profile.emails[0].value,
+                        artistName: profile.displayName ? profile.displayName : null,
+                        createdAt: new Date(),
                         stripeId: createdStripeCustomer.id
                     });
                 }
@@ -46,7 +46,7 @@ passport.use(new GoogleStrategy({
 ));
 
 passport.serializeUser(function (user, done) {
-    done(null, user.UserID);
+    done(null, user.userId);
 });
 
 passport.deserializeUser(async function (id, done) {

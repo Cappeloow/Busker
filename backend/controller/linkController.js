@@ -1,14 +1,14 @@
 import User from '../entities/user.js';
 import Link from '../entities/link.js';
 export async function createLink(req, res) {
-    const userId = req.user.UserID;
-    const { Icon, Title, URL } = req.body;
+    const userId = req.user.userId;
+    const { icon, title, url } = req.body;
     try {
         const newLink = await Link.create({
-            Icon: Icon,
-            Title: Title,
-            URL: URL,
-            UserID: userId
+            icon,
+            title,
+            url,
+            userId
         });
         res.status(201).json(newLink);
     } catch (error) {
@@ -31,7 +31,7 @@ export async function createLink(req, res) {
 export async function getAllLinks(req, res) {
     try {
         const userId = req.params.userId;
-        const links = await Link.findAll({ where: { UserID: userId } });
+        const links = await Link.findAll({ where: { userId: userId } });
         res.status(200).json(links);
     } catch (error) {
         res.status(500).send('Internal Server Error');
@@ -40,7 +40,7 @@ export async function getAllLinks(req, res) {
 
 
 export async function deleteLink(req, res) {
-    const userId = req.user.UserID;
+    const userId = req.user.userId;
     const { linkId } = req.body;
 
     const link = await Link.findByPk(linkId);
@@ -48,7 +48,7 @@ export async function deleteLink(req, res) {
         return res.status(404).send('Link not found');
     }
 
-    if (link.UserID !== userId) {
+    if (link.userId !== userId) {
         return res.status(403).send('Unauthorized');
     }
 
