@@ -26,9 +26,11 @@ export async function getUserQRCode(req, res) {
 }
 
 export async function updateUserDetails(req, res) {
+    const authUser = req.user;
     const userDetails = req.body;
+
     try {
-        const user = await User.findOne({ userId: req.user.userId });
+        const user = await User.findByPk(authUser.userId);
         if (user) {
             user.artistName = userDetails.artistName != null ? userDetails.artistName : user.artistName;
             user.country = userDetails.country != null ? userDetails.country : user.country;
