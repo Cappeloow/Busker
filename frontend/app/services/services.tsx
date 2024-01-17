@@ -34,6 +34,7 @@ export const getSpecificProduct = async (id: string) => {
  export const getAllUsers = async () => {
     const response = await fetch(`${BUSKER_BACKEND_URL}/user/all`);
     const data = await response.json();
+    console.log(data);
     return data;
  } 
 

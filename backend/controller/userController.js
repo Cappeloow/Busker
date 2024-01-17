@@ -73,7 +73,12 @@ export async function getSpecificUser(req, res) {
 
 export async function getAllUsers(req, res) {
     const users = await User.findAll();
-    res.status(200).send(users);
+    console.log(users.length);
+    const simplifiedUsers = users.map(user => ({
+        id: user.UserID,
+        username: user.ArtistName,
+    }));
+    res.status(200).send(simplifiedUsers);
 }
 
 export async function unregisterUser(req, res) {
