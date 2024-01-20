@@ -49,6 +49,14 @@ export const getSpecificProduct = async (id: string) => {
   return data;
  }
 
+ export const authStatus = async () => {
+  const response = await fetch(`${BUSKER_BACKEND_URL}/auth/status`,{
+    credentials: 'include'
+  });
+  const data = await response.json();
+  return data;
+ }
+
  export const getUserImg = async (id: string): Promise<string> => {
   try {
     const response = await fetch(`${BUSKER_BACKEND_URL}/user/${id}/profileImg`);

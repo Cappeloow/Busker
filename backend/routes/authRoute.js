@@ -17,15 +17,13 @@ authRouter.get('/auth/google',
     ));
 
 authRouter.get('/google/callback',
-    passport.authenticate('google', {
-        successRedirect: '/protected',
-        failureRedirect: '/google/failure'
-    })
+    passport.authenticate('google', { session: false }),
+    (req, res) => {
+        // Successful authentication, redirect to the user's page
+        res.redirect(`http://localhost:3000/user/${req.user.userId}`);
+    }
 );
 
-authRouter.get('/protected', auth, (req, res) => {
-    res.send(`Welcome ${req.user.artistName}`);
-});
 
 authRouter.get('/logout', (req, res) => {
     req.session.destroy();
@@ -35,5 +33,10 @@ authRouter.get('/logout', (req, res) => {
 authRouter.get('/auth/google/failure', (req, res) => {
     res.send('Failed to authenticate..');
 });
+
+authRouter.get('/auth/status', auth, (req, res) => {
+    res.json({ userId: req.user.userId });
+});
+
 
 export default authRouter;
