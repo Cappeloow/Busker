@@ -1,0 +1,80 @@
+@import "../breakpoints.scss";
+@import "../variables.scss";
+@import "../colors.scss";
+
+.home-main {
+    background: radial-gradient(circle, #1e5255, #000000);
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+header {
+    ul {
+        display: flex;
+        gap: 100px;
+    }
+
+    li {
+        text-decoration: none;
+        transition: 1s;
+        cursor: pointer;
+        color: #1e5255;
+    }
+
+    li:hover {
+        transition: 1s;
+        color: #269197;
+    }
+
+}
+
+.auth-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 50%;
+    height: 50%;
+    background-color: rgba(7, 0, 0, 0.371);
+    border: 1px solid map-get($colors , "border-grey");
+    border-radius: $base-border-radius;
+
+    .google-auth-btn {
+        margin: 10px;
+        transition: 1s;
+        opacity: 0.5;
+        font-size: 30px;
+    }
+
+    .google-auth-btn:hover {
+        opacity: 1;
+        cursor: pointer;
+        transition: 1s;
+    }
+
+    h1 {
+        color: map-get($colors, "light-turquoise");
+        font-size: 50px;
+        font-family: 'Changa', sans-serif;
+        letter-spacing: 8px;
+    }
+
+
+    p {
+        margin: 10px;
+        color: map-get($colors, "baby-blue");
+
+        @include medium {
+            font-size: 10px;
+        }
+
+        @include small {
+            font-size: 20px;
+        }
+    }
+
+}
