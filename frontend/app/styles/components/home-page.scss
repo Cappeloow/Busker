@@ -19,6 +19,7 @@ header {
     }
 
     li {
+        text-decoration: none;
         transition: 1s;
         cursor: pointer;
         color: #1e5255;
@@ -43,6 +44,7 @@ header {
     border-radius: $base-border-radius;
 
     .google-auth-btn {
+        margin: 10px;
         transition: 1s;
         opacity: 0.5;
         font-size: 30px;
@@ -58,11 +60,13 @@ header {
         color: map-get($colors, "light-turquoise");
         font-size: 50px;
         font-family: 'Changa', sans-serif;
+        letter-spacing: 8px;
     }
 
 
     p {
         margin: 10px;
+        color: map-get($colors, "baby-blue");
 
         @include medium {
             font-size: 10px;
