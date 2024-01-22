@@ -1,5 +1,6 @@
 "use client";
 import { useEffect } from 'react';
+import { useRouter } from 'next/router';
 import { FcGoogle } from 'react-icons/fc';
 import { BUSKER_BACKEND_URL } from '../../app/services/services';
 import { authStatus } from '../../app/services/services';
@@ -11,12 +12,12 @@ function LoginForm({}: Props) {
     const fetchData = async () => {
       try {
         const user = await authStatus();
-        console.log(user);
+        if (user.userId) return window.location.href = `user/${user.userId}`;
+        else return null;
       } catch (error) {
         console.error('Error fetching auth status:', error);
       }
     };
-
     fetchData();
   }, []);
 
