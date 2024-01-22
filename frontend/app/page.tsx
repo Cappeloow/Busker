@@ -1,7 +1,5 @@
-import { FcGoogle } from "react-icons/fc";
-import { BUSKER_BACKEND_URL } from "./services/services";
 import Link from "next/link";
-import LoginForm from "./components/LoginForm";
+import LoginForm from "../_components/LoginPage/LoginForm";
 export default function Home() {
   return (
     <main className="home-main">

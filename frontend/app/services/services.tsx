@@ -38,7 +38,6 @@ export const getSpecificProduct = async (id: string) => {
       }
     });
     const data = await response.json();
-    console.log(data);
     return data;
  } 
 

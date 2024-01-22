@@ -42,6 +42,7 @@ header {
     background-color: rgba(7, 0, 0, 0.371);
     border: 1px solid map-get($colors , "border-grey");
     border-radius: $base-border-radius;
+    animation: snakeBorder 5s linear infinite;
 
     .google-auth-btn {
         margin: 10px;
@@ -77,4 +78,27 @@ header {
         }
     }
 
+}
+
+
+@keyframes snakeBorder {
+    0% {
+        border-color: red;
+    }
+
+    25% {
+        border-color: yellow;
+    }
+
+    50% {
+        border-color: green;
+    }
+
+    75% {
+        border-color: blue;
+    }
+
+    100% {
+        border-color: red;
+    }
 }
