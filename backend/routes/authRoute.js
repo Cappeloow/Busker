@@ -17,12 +17,18 @@ authRouter.get('/auth/google',
     ));
 
 authRouter.get('/google/callback',
-    passport.authenticate('google', { session: false }),
-    (req, res) => {
-        // Successful authentication, redirect to the user's page
-        res.redirect(`http://localhost:3000/user/${req.user.userId}`);
-    }
+    passport.authenticate('google', {
+        successRedirect: '/success',
+        failureRedirect: '/google/failure'
+    })
 );
+
+// Custom callback for successRedirect
+authRouter.get('/success', (req, res) => {
+    // Access req.user here and construct the final redirect URL
+    const redirectURL = `http://localhost:3000/user/${req.user.userId}`;
+    res.redirect(redirectURL);
+});
 
 
 authRouter.get('/logout', (req, res) => {
@@ -35,7 +41,10 @@ authRouter.get('/auth/google/failure', (req, res) => {
 });
 
 authRouter.get('/auth/status', auth, (req, res) => {
-    res.json({ userId: req.user.userId });
+    if (req.user) {
+        res.json({ userId: req.user.userId });
+    }
+    return null
 });
 
 

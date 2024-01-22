@@ -50,9 +50,13 @@ export const getSpecificProduct = async (id: string) => {
 
  export const authStatus = async () => {
   const response = await fetch(`${BUSKER_BACKEND_URL}/auth/status`,{
-    credentials: 'include'
+    credentials: 'include',
+    next:{
+      revalidate: 4
+    }
   });
   const data = await response.json();
+  console.log(data);
   return data;
  }
 
@@ -227,7 +231,7 @@ export const uploadImage = async (formData: FormData) => {
     
       export const createAvailability = async () => {
         const inputData = {
-          "date": "2005-01-04",
+          "date": "1995-01-04",
           "description":"@Restaurant Bingo"
         }
         //MÅSTE FIXA FELMEDDELANDET, VERKAR INTE VISA SIG.
