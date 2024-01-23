@@ -1,3 +1,4 @@
+"use client"
 import React, { useState, useEffect } from 'react';
 import { getAllLinks } from '@/app/services/services';
 import CreateLinks from './CreateLinks';
