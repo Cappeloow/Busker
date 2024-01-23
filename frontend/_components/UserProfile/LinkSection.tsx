@@ -1,11 +1,41 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
+import { getAllLinks } from '@/app/services/services';
+import CreateLinks from './CreateLinks';
 
-type Props = {}
+type Link = {
+  linkId: string;
+  title: string;
+  // ... other properties
+};
 
-function LinkSection({}: Props) {
+type Props = {
+  userId: string;
+};
+
+export default function LinkSection({ userId }: Props) {
+  const [links, setLinks] = useState<Link[]>([]);
+
+  useEffect(() => {
+    const fetchLinks = async () => {
+      try {
+        const fetchedLinks = await getAllLinks(userId);
+        setLinks(fetchedLinks);
+      } catch (error) {
+        console.error('Error fetching links:', error);
+      }
+    };
+
+    fetchLinks();
+  }, [userId]);
+
   return (
-    <div>LinkSection</div>
-  )
+    <div>
+      {links.map((link) => (
+        <div key={link.linkId}>
+          <h1>{link.title}</h1>
+        </div>
+      ))}
+      <CreateLinks />
+    </div>
+  );
 }
-
-export default LinkSection

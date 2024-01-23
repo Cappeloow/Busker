@@ -1,3 +1,5 @@
+import { redirect } from "next/dist/server/api-utils";
+
 export const BUSKER_BACKEND_URL = "http://localhost:5000"
 
 /*
@@ -183,23 +185,23 @@ export const uploadImage = async (formData: FormData) => {
    */
 
      export const getAllLinks =  async (id: string): Promise<[]>=> {
-      const response = await fetch(`${BUSKER_BACKEND_URL}/link/${id}`)
+      const response = await fetch(`${BUSKER_BACKEND_URL}/link/${id}`,{
+        next:{
+          revalidate:1
+        }
+      })
       const data = await response.json();
       return data;
      }
 
 
-     export const createLink = async () => {
-      const object = {
-        icon: "IG",
-        title: "Instagram",
-        url: "https://example.com"
-      };
+     export const createLink = async (formData:FormData) => {
+      console.log(formData);
     
       try {
         const response = await fetch(`${BUSKER_BACKEND_URL}/link/create`, {
           method: 'POST',
-          body: JSON.stringify(object),
+          body: JSON.stringify(formData),
           headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json'
