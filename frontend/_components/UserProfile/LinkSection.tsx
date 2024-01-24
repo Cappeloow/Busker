@@ -1,37 +1,19 @@
-"use client"
-import React, { useState, useEffect } from 'react';
+// "use client"
+// import React, { useState, useEffect } from 'react';
 import { getAllLinks } from '@/app/services/services';
 import CreateLinks from './CreateLinks';
-
-type Link = {
-  linkId: string;
-  title: string;
-  // ... other properties
-};
+import { ILink } from '@/app/types';
 
 type Props = {
   userId: string;
 };
 
-export default function LinkSection({ userId }: Props) {
-  const [links, setLinks] = useState<Link[]>([]);
-
-  useEffect(() => {
-    const fetchLinks = async () => {
-      try {
-        const fetchedLinks = await getAllLinks(userId);
-        setLinks(fetchedLinks);
-      } catch (error) {
-        console.error('Error fetching links:', error);
-      }
-    };
-
-    fetchLinks();
-  }, [userId]);
+export default async function LinkSection({ userId }: Props) {
+        const links = await getAllLinks(userId);
 
   return (
     <div>
-      {links.map((link) => (
+      {links.map((link:ILink) => (
         <div key={link.linkId}>
           <h1>{link.title}</h1>
         </div>

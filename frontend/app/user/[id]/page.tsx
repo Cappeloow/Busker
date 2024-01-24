@@ -15,9 +15,9 @@ export default function Page({ params }: { params: { id: string } }) {
       <div>
         My Page
       </div>
+       {/* @ts-expect-error Server Component */}
       <LinkSection userId={id}/>
-      // {/* @ts-expect-error Server Component */}
+       {/* @ts-expect-error Server Component */}
       <Calender userId={id}/>
-      {/* <button onClick={() => createAvailability()}>createAvailability</button> */}
     </main>)
   }

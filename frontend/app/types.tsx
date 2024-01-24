@@ -15,6 +15,12 @@ export interface ICartItem {
 }
 // USER
 // LINKS
+export interface ILink {
+    linkId: string,
+    title: string,
+    url:string,
+};
+
 // AVAILABILITY
 export interface IAvailability {
   availabilityId: string,
