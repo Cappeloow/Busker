@@ -16,6 +16,15 @@ export interface ICartItem {
 // USER
 // LINKS
 // AVAILABILITY
+export interface IAvailability {
+  availabilityId: string,
+  date: string,
+  status: string,
+  location:string,
+  bookingTime: string,
+  description:string,
+}
+
 // ORDERS
 
 export interface IOrder {

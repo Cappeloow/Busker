@@ -71,7 +71,7 @@ const page = (props: Props) => {
         ))}
 
         <div>
-          <h1>{cart.length}x </h1>
+
           {cart.map((cartItem, index) =>(
             <div key={index}>
               <p>{cartItem.name} </p>
@@ -81,7 +81,8 @@ const page = (props: Props) => {
           ))}
         </div>
 
-        <button onClick={handleCheckout}>Go to Checkout</button>
+          {cart.length >= 1 && (<><h1>{cart.length}x </h1>
+        <button onClick={handleCheckout}>Go to Checkout</button></>)}
       </main>
     );
   };

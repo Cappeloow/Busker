@@ -56,3 +56,62 @@ export const BUSKER_BACKEND_URL = "http://localhost:5000"
         
           return response.json();
     }
+
+
+        /*
+   *   AAAAA  V   V III L      AAAAA  BBBBB  III L      III TTTTT III EEEE  SSSS
+   *   A   A  V   V  I  L      A   A  B   B   I  L       I    T   I  E     S
+   *   AAAAA   V V   I  L      AAAAA  BBBBB   I  L       I    T   I  EEEE   SSS
+   *   A   A    V    I  L      A   A  B   B   I  L       I    T   I  E          S
+   *   A   A    V   III LLLLL  A   A  BBBBB  III LLLLL  III    T   I  EEEE SSSS
+   */
+
+    
+        export const createAvailability = async () => {
+          const inputData = {
+            "date": "1395-01-04",
+            "description":"@Restaurant Bingo"
+          }
+          //MÅSTE FIXA FELMEDDELANDET, VERKAR INTE VISA SIG.
+  
+          const response = await fetch(`${BUSKER_BACKEND_URL}/availability/create`, {
+            method: "POST",
+            body: JSON.stringify(inputData),
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+            }, 
+            credentials: 'include',
+          })
+          if (!response.ok){
+            return 'Something went wrong';
+          }
+  
+          const data  = await response.json();
+          console.log(data);
+         }
+  
+  
+         export const updateAvailability = async () => { 
+          const updateAvailability = {
+            "availabilityId":"408ed02c-f21b-4f3e-965b-b3a09d907053",
+            "date":"1395-01-04",
+            "location": "Göteborg",
+            "bookingTime":"20:00",
+            "status": "In Talks",
+        }
+          const response = await fetch(`${BUSKER_BACKEND_URL}/availability/update`,
+          {
+            method: "PUT",
+            headers:{
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+            },
+            credentials: 'include',
+            body: JSON.stringify(updateAvailability)
+  
+          }
+          )
+          const data = await response.json();
+          console.log(data);
+         }
