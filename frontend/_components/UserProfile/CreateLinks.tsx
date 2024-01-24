@@ -35,7 +35,8 @@ const [isUser, setIsUser] = useState<boolean>(false)
   };
 
   return (
-    isUser &&
+  <>
+  {isUser && (
     <div>
       <form onSubmit={handleSubmit}>
         <input
@@ -61,6 +62,7 @@ const [isUser, setIsUser] = useState<boolean>(false)
         />
         <button type="submit">Send it</button>
       </form>
-    </div>
+    </div> )}
+  </>
   );
 }

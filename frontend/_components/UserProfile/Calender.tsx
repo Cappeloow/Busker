@@ -14,7 +14,6 @@ async function Calender(props: Props) {
     <div>
         <h1>My Calender</h1>
         {/*import a calender*/}
-        {/*need to change the attribute of my availibity (bookedDateTime should rather be time or something) */}
 
         {availabilities.map((availability:IAvailability) => (
             <div key={availability.availabilityId}>
