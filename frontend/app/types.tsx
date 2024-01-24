@@ -16,7 +16,8 @@ export interface ICartItem {
 // USER
 // LINKS
 export interface ILink {
-    linkId: string,
+    linkId?: string,
+    icon:string,
     title: string,
     url:string,
 };

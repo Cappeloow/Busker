@@ -1,4 +1,5 @@
 "use client"
+import { ILink } from '@/app/types';
 import React, { useEffect, useState } from 'react';
 import { createLink } from '@/app/services/services';
 import { useFormState } from 'react-dom';
@@ -9,7 +10,7 @@ type Props = {};
 export default function CreateLinks({}: Props) {
   const router = useRouter();
   const {id} = useParams();
-const [linkData, setLinkData] = useState({
+const [linkData, setLinkData] = useState<ILink>({
   icon: '',
   title: '',
   url: '',

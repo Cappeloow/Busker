@@ -41,10 +41,7 @@ authRouter.get('/auth/google/failure', (req, res) => {
 });
 
 authRouter.get('/auth/status', auth, (req, res) => {
-    if (req.user) {
-        res.json({ userId: req.user.userId });
-    }
-    return null
+    return res.json({ userId: req.user.userId });
 });
 
 

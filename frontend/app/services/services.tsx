@@ -1,6 +1,7 @@
 import { redirect } from "next/dist/server/api-utils";
-
+import { ILink } from "../types";
 export const BUSKER_BACKEND_URL = "http://localhost:5000"
+export const BUSKER_FRONTEND_URL = "http://localhost:3000"
 
 /*
    *   PPP    RRRR   OOO   DDDD  U   U  CCCC  TTTTT  SSSS
@@ -57,8 +58,10 @@ export const getSpecificProduct = async (id: string) => {
       revalidate: 4
     }
   });
+  if (response.status === 401) {
+    return response.status;
+  }
   const data = await response.json();
-  console.log(data);
   return data;
  }
 
@@ -167,13 +170,11 @@ export const uploadImage = async (formData: FormData) => {
      }
 
 
-     export const createLink = async (formData:FormData) => {
-      console.log(formData);
-    
+     export const createLink = async (linkData:ILink) => {    
       try {
         const response = await fetch(`${BUSKER_BACKEND_URL}/link/create`, {
           method: 'POST',
-          body: JSON.stringify(formData),
+          body: JSON.stringify(linkData),
           headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json'
