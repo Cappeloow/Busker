@@ -1,7 +1,6 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import { generateQRCode } from '@/app/services/services';
-
 type Props = {
   id:string
 }

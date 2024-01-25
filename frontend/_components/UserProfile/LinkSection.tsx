@@ -16,7 +16,7 @@ export default async function LinkSection({ userId, isAuth }: Props) {
       {links.map((link:ILink) => (
         <div key={link.linkId}>
           <h1>{link.title}</h1>
-          <DeleteLink id={link.linkId!}/>
+          { isAuth === userId && <DeleteLink id={link.linkId!}/>}
         </div>
       ))}
       <CreateLinks isAuth={isAuth} />

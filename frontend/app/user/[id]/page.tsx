@@ -5,20 +5,7 @@ import Image from "next/image";
 import Calender from "@/_components/UserProfile/Calender";
 import { cookies, headers } from "next/headers";
 
-const authStatus = async () => {
-  const response = await fetch(`${BUSKER_BACKEND_URL}/auth/status`,{
-    headers: Object.fromEntries(headers()),
-   next:{
-     revalidate: 4
-   }
- });
- if (response.status === 401) {
-  return null;
- }
- const data = await response.json();
- return data;
-}
-
+import { authStatus } from "@/app/services/SSRAuth";
 
 // {/* @ts-expect-error Server Component */}
 export default async function Page({ params }: { params: { id: string } }) {

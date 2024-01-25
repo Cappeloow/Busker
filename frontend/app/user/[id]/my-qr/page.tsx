@@ -1,21 +1,15 @@
-"use client"
-import React from 'react'
-import { useParams } from 'next/navigation'
-type Props = {}
-import Link from 'next/link'
 import QrCodeImage from '@/_components/MyQr/QrCodeImage'
+import GoToStoreButton from '@/_components/MyQr/GoToStoreButton'
+import { authStatus } from '@/app/services/SSRAuth'
+type Props = {}
 
-const page = (props: Props) => {
-    const {id} = useParams();
-    const singleId: string = Array.isArray(id) ? id[0] : id;
+export default async function Page({ params }: { params: { id: string } }) {
+    const {id} = params;
+    const isAuth = await authStatus();
   return (
     <main>
-      <QrCodeImage id={singleId}/>
-        <Link href={`/store`}>
-            <button>MY STORE</button>
-        </Link>
+      <QrCodeImage id={id}/>
+      { isAuth?.userId === id && <GoToStoreButton/>}
     </main>
   )
 }
-
-export default page
