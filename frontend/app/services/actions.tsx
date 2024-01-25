@@ -1,4 +1,4 @@
-import { ICartItem } from "../types";
+import { ICartItem, IAvailability } from "../types";
 export const BUSKER_BACKEND_URL = "http://localhost:5000"
 
 
@@ -67,16 +67,13 @@ export const BUSKER_BACKEND_URL = "http://localhost:5000"
    */
 
     
-        export const createAvailability = async () => {
-          const inputData = {
-            "date": "1395-01-04",
-            "description":"@Restaurant Bingo"
-          }
+        export const createAvailability = async (availabilityData:IAvailability) => {
           //MÅSTE FIXA FELMEDDELANDET, VERKAR INTE VISA SIG.
   
+          console.log(availabilityData);
           const response = await fetch(`${BUSKER_BACKEND_URL}/availability/create`, {
             method: "POST",
-            body: JSON.stringify(inputData),
+            body: JSON.stringify(availabilityData),
             headers: {
               'Content-Type': 'application/json',
               'Accept': 'application/json'
@@ -92,14 +89,15 @@ export const BUSKER_BACKEND_URL = "http://localhost:5000"
          }
   
   
-         export const updateAvailability = async () => { 
-          const updateAvailability = {
-            "availabilityId":"408ed02c-f21b-4f3e-965b-b3a09d907053",
-            "date":"1395-01-04",
-            "location": "Göteborg",
-            "bookingTime":"20:00",
-            "status": "In Talks",
-        }
+         export const updateAvailability = async (availabilityData: IAvailability) => { 
+          console.log(availabilityData);
+        //   const updateAvailability = {
+        //     "availabilityId":"408ed02c-f21b-4f3e-965b-b3a09d907053",
+        //     "date":"1395-01-04",
+        //     "location": "Göteborg",
+        //     "bookingTime":"20:00",
+        //     "status": "In Talks",
+        // }
           const response = await fetch(`${BUSKER_BACKEND_URL}/availability/update`,
           {
             method: "PUT",
@@ -108,7 +106,7 @@ export const BUSKER_BACKEND_URL = "http://localhost:5000"
               'Accept': 'application/json'
             },
             credentials: 'include',
-            body: JSON.stringify(updateAvailability)
+            body: JSON.stringify(availabilityData)
   
           }
           )

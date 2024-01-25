@@ -207,7 +207,7 @@ export const uploadImage = async (formData: FormData) => {
        export const getAllAvailabilities = async (id:string) => {
         const response = await fetch(`${BUSKER_BACKEND_URL}/availability/${id}`,{
           next:{
-            revalidate: 3
+            revalidate: 1
           }
         });
         const data = await response.json();

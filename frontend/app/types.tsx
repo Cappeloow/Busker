@@ -24,12 +24,12 @@ export interface ILink {
 
 // AVAILABILITY
 export interface IAvailability {
-  availabilityId: string,
+  availabilityId?: string,
   date: string,
-  status: string,
-  location:string,
-  bookingTime: string,
   description:string,
+  status?: string,
+  location?:string,
+  bookingTime?: string,
 }
 
 // ORDERS

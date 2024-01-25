@@ -10,11 +10,8 @@ export default function Page({ params }: { params: { id: string } }) {
   return (
     <main>
       <Link href={`/user/${id}/my-qr`}>
-        MY QR
+        <button>MY QR </button>
       </Link>
-      <div>
-        My Page
-      </div>
        {/* @ts-expect-error Server Component */}
       <LinkSection userId={id}/>
        {/* @ts-expect-error Server Component */}

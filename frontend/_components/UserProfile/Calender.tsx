@@ -13,16 +13,31 @@ async function Calender(props: Props) {
   return (
     <div>
         <h1>My Calender</h1>
-        {/*import a calender*/}
-
         {availabilities.map((availability:IAvailability) => (
             <div key={availability.availabilityId}>
                 <h3>{availability.date}</h3>
                 <p>{availability.description}</p>
+                {/*CHECKING THE CURRENT STATUS OF THE DATE*/}
+                {
+                    availability.status === 'Available' ? (
+                        <div style={{ background: 'green', color: 'white' }}>
+                        I'm Free
+                        </div>
+                    ) : availability.status === 'In Talks' ? (
+                        <div style={{ background: 'yellow', color: 'black' }}>
+                        In Talks
+                        </div>
+                    ) : (
+                        <div style={{ background: 'red', color: 'black' }}>
+                        Booked!
+                        </div>
+                    )
+                    }
+
+                <UpdateAvailability availabilityId={availability.availabilityId!} date={availability.date}/>
             </div>
         ))}
         <CreateAvailability/>
-        <UpdateAvailability/>
     </div>
   )
 }
