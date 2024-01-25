@@ -7,9 +7,13 @@ import { IAvailability } from '@/app/types';
 type Props = {
   availabilityId:string,
   date:string,
+  status:string,
+  location:string,
+  description:string,
+  bookingTime:string,
 }
 
-function UpdateAvailability({availabilityId, date}: Props) {
+function UpdateAvailability({availabilityId, date, status, description, location, bookingTime}: Props) {
   //auth
   const {id} = useParams();
   const [isUser, setIsUser] = useState<boolean>(false)
@@ -32,10 +36,10 @@ function UpdateAvailability({availabilityId, date}: Props) {
  const [availabilityData, setAvailabilityData] = useState<IAvailability>({
   availabilityId,
   date,
-  description: '',
-  location:'',
-  bookingTime:'',
-  status:'',
+  description,
+  location: location || "",
+  bookingTime: bookingTime || "",
+  status,
 });
 
 
