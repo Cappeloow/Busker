@@ -28,8 +28,8 @@ const Availability = sequelize.define('availability', {
     },
   },
 
-  bookedDateTime: {
-    type: DataTypes.DATE,
+  bookingTime: {
+    type: DataTypes.TIME,
     allowNull: true,
   },
 

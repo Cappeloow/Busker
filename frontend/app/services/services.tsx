@@ -1,4 +1,8 @@
+import { redirect } from "next/dist/server/api-utils";
+import {headers} from 'next/headers';
+import { ILink } from "../types";
 export const BUSKER_BACKEND_URL = "http://localhost:5000"
+export const BUSKER_FRONTEND_URL = "http://localhost:3000"
 
 /*
    *   PPP    RRRR   OOO   DDDD  U   U  CCCC  TTTTT  SSSS
@@ -55,8 +59,10 @@ export const getSpecificProduct = async (id: string) => {
       revalidate: 4
     }
   });
+  if (response.status === 401) {
+    return response.status;
+  }
   const data = await response.json();
-  console.log(data);
   return data;
  }
 
@@ -121,10 +127,6 @@ export const uploadImage = async (formData: FormData) => {
   // Rest of your code...
 };
 
-
-
-
-
    /*
    *   OOO   RRRR   DDDD  EEEE  RRRR  SSSS
    *  O   O  R   R D   D E     R   R S
@@ -133,31 +135,7 @@ export const uploadImage = async (formData: FormData) => {
    *   OOO   R   R DDDD  EEEE  R   R SSSS
    */
 
-  export const createOrder = async () => {
-    const orderItems = [
-      {
-        "name": "Busker QR Sign",
-        "description": "This is your unique Busker Sign. When your out on the street och playing on a Pub, do not forget to bring your sign in order to really connect with your fans!",
-        "price": 199,
-        "quantity": 2
-      },
-  ]
-  
-  const response = await fetch(`${BUSKER_BACKEND_URL}/order/create-checkout-session`, {
-    method: 'POST',
-    body: JSON.stringify(orderItems),
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
-    },
-    credentials: 'include',
-  })
 
-  const data = await response.json();
-
-  console.log(data);
-
-  }
 
   export const getAllUserOrders = async () => {
     const response = await fetch(`${BUSKER_BACKEND_URL}/order`, 
@@ -183,23 +161,21 @@ export const uploadImage = async (formData: FormData) => {
    */
 
      export const getAllLinks =  async (id: string): Promise<[]>=> {
-      const response = await fetch(`${BUSKER_BACKEND_URL}/link/${id}`)
+      const response = await fetch(`${BUSKER_BACKEND_URL}/link/${id}`,{
+        next:{
+          revalidate:1
+        }
+      })
       const data = await response.json();
       return data;
      }
 
 
-     export const createLink = async () => {
-      const object = {
-        icon: "IG",
-        title: "Instagram",
-        url: "https://example.com"
-      };
-    
+     export const createLink = async (linkData:ILink) => {    
       try {
         const response = await fetch(`${BUSKER_BACKEND_URL}/link/create`, {
           method: 'POST',
-          body: JSON.stringify(object),
+          body: JSON.stringify(linkData),
           headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json'
@@ -228,55 +204,13 @@ export const uploadImage = async (formData: FormData) => {
    *   A   A    V   III LLLLL  A   A  BBBBB  III LLLLL  III    T   I  EEEE SSSS
    */
 
-    
-      export const createAvailability = async () => {
-        const inputData = {
-          "date": "1995-01-04",
-          "description":"@Restaurant Bingo"
-        }
-        //MÅSTE FIXA FELMEDDELANDET, VERKAR INTE VISA SIG.
-
-        const response = await fetch(`${BUSKER_BACKEND_URL}/availability/create`, {
-          method: "POST",
-          body: JSON.stringify(inputData),
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-          }, 
-          credentials: 'include',
-        })
-        if (!response.ok){
-          return 'Something went wrong';
-        }
-
-        const data  = await response.json();
-        console.log(data);
-       }
-
-
-       export const updateAvailability = async () => { 
-        const updateAvailability = {
-          "availabilityId":1,
-          "date":"2002-01-19"
-      }
-        const response = await fetch(`${BUSKER_BACKEND_URL}/availability/update`,
-        {
-          method: "PUT",
-          headers:{
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-          },
-          credentials: 'include',
-          body: JSON.stringify(updateAvailability)
-
-        }
-        )
-        const data = await response.json();
-        console.log(data);
-       }
 
        export const getAllAvailabilities = async (id:string) => {
-        const response = await fetch(`${BUSKER_BACKEND_URL}/availability/${id}`);
+        const response = await fetch(`${BUSKER_BACKEND_URL}/availability/${id}`,{
+          next:{
+            revalidate: 1
+          }
+        });
         const data = await response.json();
         return data;
        }

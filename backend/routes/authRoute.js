@@ -40,11 +40,12 @@ authRouter.get('/auth/google/failure', (req, res) => {
     res.send('Failed to authenticate..');
 });
 
-authRouter.get('/auth/status', auth, (req, res) => {
-    if (req.user) {
-        res.json({ userId: req.user.userId });
+
+authRouter.get('/auth/status', (req, res) => {
+    if (!req.user) {
+        return res.status(401).send('Unauthorized');
     }
-    return null
+    return res.json({ userId: req.user.userId });
 });
 
 

@@ -45,7 +45,7 @@ export async function getAllAvailabilities(req, res) {
 
 export async function updateAvailability(req, res) {
     const userId = req.user.userId;
-    const { availabilityId, description, date, status, bookedDateTime, location } = req.body;
+    const { availabilityId, description, date, status, bookingTime, location } = req.body;
     try {
         // Find the availability with the specified ID and user
         const availability = await Availability.findOne({ where: { availabilityId: availabilityId, userId: userId } });
@@ -58,8 +58,8 @@ export async function updateAvailability(req, res) {
         // Check if there is any existing availability with the new date for the user
         const existingAvailability = await Availability.findOne({ where: { date, userId: userId } });
 
-        // If an availability for the new date already exists, return an error response
-        if (existingAvailability) {
+        // If an availability for the new date already exists with a different ID, return an error response
+        if (existingAvailability && existingAvailability.availabilityId !== availabilityId) {
             return res.status(400).json({ error: 'Availability for this date already exists. Please pick a different date.' });
         }
 
@@ -68,7 +68,7 @@ export async function updateAvailability(req, res) {
         availability.date = date != null ? date : availability.date;
         availability.status = status != null ? status : availability.status;
         availability.location = location != null ? location : availability.location;
-        availability.bookedDateTime = bookedDateTime != null ? bookedDateTime : availability.bookedDateTime;
+        availability.bookingTime = bookingTime != null ? bookingTime : availability.bookingTime;
 
         // Save the updated availability
         await availability.save();
