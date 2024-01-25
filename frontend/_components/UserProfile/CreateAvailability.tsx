@@ -1,26 +1,15 @@
 "use client";
 import {useState, useEffect} from 'react';
-import { authStatus } from '@/app/services/services';
 import { createAvailability } from '@/app/services/actions';
 import { useParams } from 'next/navigation';
 import { IAvailability } from '@/app/types';
-type Props = {}
+type Props = {
+  isAuth:string
+}
 
-function CreateAvailability({}: Props) {
+function CreateAvailability({isAuth}: Props) {
   
   const {id} = useParams();
-  
-  // checkauth
-  const [isUser, setIsUser] = useState<boolean>(false)
-  useEffect(() => {
-    const getAuth = async () => {
-      const {userId} = await authStatus();
-      if (userId === id){
-        setIsUser(true);
-      }
-    }
-    getAuth();
-  },[])
 
   // handle data 
   const [availabilityData, setAvailabilityData] = useState<IAvailability>({
@@ -37,7 +26,7 @@ function CreateAvailability({}: Props) {
 
   return (
     <>
-    {isUser && (
+    {isAuth === id && (
       <div>
         <form onSubmit={handleSubmit}>
           <input

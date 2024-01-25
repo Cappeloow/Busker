@@ -3,11 +3,12 @@ import { ILink } from '@/app/types';
 import React, { useEffect, useState } from 'react';
 import { createLink } from '@/app/services/services';
 import { useFormState } from 'react-dom';
-import { authStatus } from '@/app/services/services';
 import { useRouter, useParams } from 'next/navigation';
-type Props = {};
+type Props = {
+  isAuth:string
+};
 
-export default function CreateLinks({}: Props) {
+export default function CreateLinks({isAuth}: Props) {
   const router = useRouter();
   const {id} = useParams();
 const [linkData, setLinkData] = useState<ILink>({
@@ -15,17 +16,6 @@ const [linkData, setLinkData] = useState<ILink>({
   title: '',
   url: '',
 });
-const [isUser, setIsUser] = useState<boolean>(false)
-
-  useEffect(() => {
-    const getAuth = async () => {
-      const {userId} = await authStatus();
-      if (userId === id){
-        setIsUser(true);
-      }
-    }
-    getAuth();
-  },[])
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -36,7 +26,7 @@ const [isUser, setIsUser] = useState<boolean>(false)
 
   return (
   <>
-  {isUser && (
+  {isAuth === id && (
     <div>
       <form onSubmit={handleSubmit}>
         <input

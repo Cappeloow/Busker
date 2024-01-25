@@ -1,4 +1,5 @@
 import { redirect } from "next/dist/server/api-utils";
+import {headers} from 'next/headers';
 import { ILink } from "../types";
 export const BUSKER_BACKEND_URL = "http://localhost:5000"
 export const BUSKER_FRONTEND_URL = "http://localhost:3000"

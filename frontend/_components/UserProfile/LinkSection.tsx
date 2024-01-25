@@ -5,9 +5,10 @@ import DeleteLink from './DeleteLink';
 
 type Props = {
   userId: string;
+  isAuth: string;
 };
 
-export default async function LinkSection({ userId }: Props) {
+export default async function LinkSection({ userId, isAuth }: Props) {
         const links = await getAllLinks(userId);
 
   return (
@@ -18,7 +19,7 @@ export default async function LinkSection({ userId }: Props) {
           <DeleteLink id={link.linkId!}/>
         </div>
       ))}
-      <CreateLinks />
+      <CreateLinks isAuth={isAuth} />
     </div>
   );
 }

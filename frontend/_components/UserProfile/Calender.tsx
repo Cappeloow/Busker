@@ -4,11 +4,12 @@ import { getAllAvailabilities } from '@/app/services/services'
 import UpdateAvailability from './UpdateAvailability'
 import { IAvailability } from '@/app/types'
 type Props = {
-    userId:string
+    userId:string,
+    isAuth:string
 }
 
 async function Calender(props: Props) {
-    const {userId} = props;
+    const {userId,isAuth} = props;
     const availabilities = await getAllAvailabilities(userId);
   return (
     <div>
@@ -35,10 +36,10 @@ async function Calender(props: Props) {
                     )
                     }
 
-                <UpdateAvailability availabilityId={availability.availabilityId!} description={availability.description} date={availability.date} status={availability.status!} location={availability.location!} bookingTime={availability.bookingTime!} />
+                <UpdateAvailability isAuth={isAuth} availabilityId={availability.availabilityId!} description={availability.description} date={availability.date} status={availability.status!} location={availability.location!} bookingTime={availability.bookingTime!} />
             </div>
         ))}
-        <CreateAvailability/>
+        <CreateAvailability isAuth={isAuth}/>
     </div>
   )
 }
