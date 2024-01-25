@@ -113,3 +113,28 @@ export const BUSKER_BACKEND_URL = "http://localhost:5000"
           const data = await response.json();
           console.log(data);
          }
+
+
+   /*
+   *   L      III   N   N K   K SSSS
+   *   L       I    NN  N K  K  S
+   *   L       I    N N N K K    SSS
+   *   L       I    N  NN K  K      S
+   *   LLLLL  III   N   N K   K SSSS
+   */
+
+
+   export const deleteLink = async (linkId:string) => {
+    const response = await fetch(`${BUSKER_BACKEND_URL}/link/delete`,{
+      method: "DELETE",
+      headers:{
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      credentials: 'include',
+      body: JSON.stringify({linkId})
+    })
+    console.log(response);
+   }
+
+            
