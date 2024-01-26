@@ -6,7 +6,6 @@ type Props = {
 
 export default async function TotalClicksComponent({userId}: Props) {
     const {totalClicks} = await getTotalClicksCount(userId);
-    console.log(totalClicks);
   return (
     <>
     <p>Total external links clicked on: {totalClicks.toString()}</p>

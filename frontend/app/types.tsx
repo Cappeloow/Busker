@@ -18,6 +18,7 @@ export interface IUser {
 userId:string,
 artistName:string,
 country?:string,
+linkClicks?:number,
 }
 // LINKS
 export interface ILink {

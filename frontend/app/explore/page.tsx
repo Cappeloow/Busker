@@ -16,8 +16,8 @@ export default async function Page ({}: Props) {
             <ImageComponent height={100} width={100} id={user.userId}/>
                 {user.artistName}
             </Link>
-            {/* @ts-expect-error Server Component */}
-            <TotalClicksComponent userId={user.userId}/>
+            {/* <TotalClicksComponent userId={user.userId}/> */}
+            <p> Total external links clicked on: {user.linkClicks?.toString()}</p>
             </div>
         ))}
     </div>

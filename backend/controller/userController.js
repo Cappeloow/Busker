@@ -3,6 +3,7 @@ import User from '../entities/user.js';
 import initStripe from '../stripe.js';
 import useGoogleCloudStorage from '../utils/useGoogleCloudStorage.js';
 import multer from 'multer';
+import Link from '../entities/link.js';
 
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
@@ -74,13 +75,30 @@ export async function getSpecificUser(req, res) {
 }
 
 export async function getAllUsers(req, res) {
-    const users = await User.findAll();
-    const simplifiedUsers = users.map(user => ({
-        userId: user.userId,
-        artistName: user.artistName,
-    }));
-    res.status(200).send(simplifiedUsers);
+    try {
+        const users = await User.findAll();
+
+        const simplifiedUsers = await Promise.all(users.map(async (user) => {
+            const links = await Link.findAll({ where: { userId: user.userId } });
+
+            // Using reduce to calculate totalClicks
+            const totalClicks = links.reduce((sum, link) => sum + link.linkClicks, 0);
+
+            return {
+                userId: user.userId,
+                artistName: user.artistName,
+                linkClicks: totalClicks,
+            };
+        }));
+        const sortedUsers = simplifiedUsers.slice().sort((a, b) => b.linkClicks - a.linkClicks);
+
+        res.status(200).send(sortedUsers);
+    } catch (error) {
+        console.error('Error fetching users:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
 }
+
 
 export async function unregisterUser(req, res) {
     const userId = req.user.userId;
