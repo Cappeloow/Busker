@@ -42,6 +42,7 @@ export const getSpecificProduct = async (id: string) => {
       }
     });
     const data = await response.json();
+    console.log(data);
     return data;
  } 
 
@@ -52,6 +53,8 @@ export const getSpecificProduct = async (id: string) => {
   return data;
  }
 
+
+ // dont remove incase
  export const authStatus = async () => {
   const response = await fetch(`${BUSKER_BACKEND_URL}/auth/status`,{
     credentials: 'include',
@@ -167,6 +170,19 @@ export const uploadImage = async (formData: FormData) => {
         }
       })
       const data = await response.json();
+      return data;
+     }
+
+     export const getTotalClicksCount = async (userId: string) => {
+      const response = await fetch(`${BUSKER_BACKEND_URL}/link/${userId}/totalClicks`,{
+        next:{
+          revalidate:1
+        }
+      })
+      if (!response.ok){
+        return response.status;
+      }
+      const data =response.json();
       return data;
      }
 

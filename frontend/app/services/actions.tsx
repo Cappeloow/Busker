@@ -1,3 +1,4 @@
+import { ResponseCookies } from "next/dist/compiled/@edge-runtime/cookies";
 import { ICartItem, IAvailability } from "../types";
 export const BUSKER_BACKEND_URL = "http://localhost:5000"
 
@@ -39,7 +40,6 @@ export const BUSKER_BACKEND_URL = "http://localhost:5000"
 
 
     export const getOrderConfirmation = async (id:string) => {
-        console.log(id);
         const response = await fetch(`${BUSKER_BACKEND_URL}/order/confirmation`, {
             method: 'POST',
             body: JSON.stringify({ id }),
@@ -49,7 +49,6 @@ export const BUSKER_BACKEND_URL = "http://localhost:5000"
             },
             credentials: 'include',
           })
-          console.log(response);
           if(!response.ok) {
             return null;
           }
@@ -138,3 +137,29 @@ export const BUSKER_BACKEND_URL = "http://localhost:5000"
    }
 
             
+
+    /*
+   *   U   U  SSSS  EEEE  RRRR
+   *   U   U S      E     R   R
+   *   U   U  SSS   EEEE  RRRR
+   *   U   U      S E     R   R
+   *    UUU   SSSS   EEEE  R   R
+   */
+
+
+    export const addAmountToLink = async (linkId:string, userId:string) => {
+      console.log(linkId);
+      const response = await fetch(`${BUSKER_BACKEND_URL}/link/clicked`,{
+        method: 'POST',
+        body: JSON.stringify({linkId}),
+        headers:{
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+      });
+      const data = response.json();
+      console.log(data);
+      if (response.status === 200) {
+        return;
+      }
+    }

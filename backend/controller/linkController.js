@@ -57,3 +57,31 @@ export async function deleteLink(req, res) {
 }
 
 
+export async function clickedOnLink(req, res) {
+    const linkData = req.body;
+    try {
+        const link = await Link.findByPk(linkData.linkId);
+        link.linkClicks = link.linkClicks + 1;
+        link.save();
+
+        return res.status(200).json("Added one");
+    } catch (error) {
+
+    }
+}
+
+export async function getTotalClicks(req, res) {
+    const userId = req.params.userId
+    try {
+        const allLinks = await Link.findAll({ where: { userId: userId } });
+        let totalClicks = 0;
+        allLinks.forEach(link => {
+            totalClicks += link.linkClicks;
+        });
+
+        res.status(200).json({ totalClicks });
+    } catch (error) {
+        console.error('Error fetching links:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+}
