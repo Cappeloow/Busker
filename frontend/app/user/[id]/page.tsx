@@ -14,7 +14,7 @@ export default async function Page({ params }: { params: { id: string } }) {
   if (url) URL.revokeObjectURL(url);
   return (
     <main>
-      <ImageComponent id={id}/>
+      <ImageComponent height={350} width={350} id={id}/>
       <Image src={url} alt="test" width={500} height={500} />
       <Link href={`/user/${id}/my-qr`}>
         <button>MY QR </button>
