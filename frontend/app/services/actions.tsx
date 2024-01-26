@@ -40,7 +40,6 @@ export const BUSKER_BACKEND_URL = "http://localhost:5000"
 
 
     export const getOrderConfirmation = async (id:string) => {
-        console.log(id);
         const response = await fetch(`${BUSKER_BACKEND_URL}/order/confirmation`, {
             method: 'POST',
             body: JSON.stringify({ id }),
@@ -50,7 +49,6 @@ export const BUSKER_BACKEND_URL = "http://localhost:5000"
             },
             credentials: 'include',
           })
-          console.log(response);
           if(!response.ok) {
             return null;
           }

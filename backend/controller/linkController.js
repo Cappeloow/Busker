@@ -61,7 +61,6 @@ export async function clickedOnLink(req, res) {
     const linkData = req.body;
     try {
         const link = await Link.findByPk(linkData.linkId);
-        console.log(link);
         link.linkClicks = link.linkClicks + 1;
         link.save();
 
