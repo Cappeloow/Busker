@@ -30,6 +30,9 @@ const Link = sequelize.define('links', {
             isString: (value) => isString(value, 'URL'),
         },
     },
+    linkClicks: {
+        type: DataTypes.INTEGER,
+    }
 });
 sequelize.sync();
 
