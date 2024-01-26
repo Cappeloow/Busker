@@ -76,8 +76,8 @@ export async function getSpecificUser(req, res) {
 export async function getAllUsers(req, res) {
     const users = await User.findAll();
     const simplifiedUsers = users.map(user => ({
-        id: user.userId,
-        username: user.artistName,
+        userId: user.userId,
+        artistName: user.artistName,
     }));
     res.status(200).send(simplifiedUsers);
 }
