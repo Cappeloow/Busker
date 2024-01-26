@@ -1,6 +1,7 @@
 import React from 'react'
 import { getAllUsers } from '../services/services'
 type Props = {}
+import TotalClicksComponent from '@/_components/Explore/TotalClicksComponent';
 import Link from 'next/link';
 import ImageComponent from '@/_components/UserProfile/ImageComponent';
 import { IUser } from '../types';
@@ -15,6 +16,8 @@ export default async function Page ({}: Props) {
             <ImageComponent height={100} width={100} id={user.userId}/>
                 {user.artistName}
             </Link>
+            {/* @ts-expect-error Server Component */}
+            <TotalClicksComponent userId={user.userId}/>
             </div>
         ))}
     </div>

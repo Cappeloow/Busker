@@ -170,6 +170,19 @@ export const uploadImage = async (formData: FormData) => {
       return data;
      }
 
+     export const getTotalClicksCount = async (userId: string) => {
+      const response = await fetch(`${BUSKER_BACKEND_URL}/link/${userId}/totalClicks`,{
+        next:{
+          revalidate:1
+        }
+      })
+      if (!response.ok){
+        return response.status;
+      }
+      const data =response.json();
+      return data;
+     }
+
 
      export const createLink = async (linkData:ILink) => {    
       try {
