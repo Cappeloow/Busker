@@ -14,6 +14,11 @@ export interface ICartItem {
     quantity:number,
 }
 // USER
+export interface IUser {
+userId:string,
+artistName:string,
+country?:string,
+}
 // LINKS
 export interface ILink {
     linkId?: string,

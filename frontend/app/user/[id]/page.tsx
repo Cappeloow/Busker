@@ -1,7 +1,6 @@
 import { BUSKER_BACKEND_URL, getUserImg } from "@/app/services/services";
 import LinkSection from "@/_components/UserProfile/LinkSection";
 import Link from "next/link";
-import Image from "next/image";
 import Calender from "@/_components/UserProfile/Calender";
 import ImageComponent from "@/_components/UserProfile/ImageComponent";
 import { authStatus } from "@/app/services/SSRAuth";
@@ -15,7 +14,6 @@ export default async function Page({ params }: { params: { id: string } }) {
   return (
     <main>
       <ImageComponent height={350} width={350} id={id}/>
-      <Image src={url} alt="test" width={500} height={500} />
       <Link href={`/user/${id}/my-qr`}>
         <button>MY QR </button>
       </Link>
