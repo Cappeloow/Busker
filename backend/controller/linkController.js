@@ -58,14 +58,17 @@ export async function deleteLink(req, res) {
 
 
 export async function clickedOnLink(req, res) {
-    const linkId = req.body.linkId;
+    const linkData = req.body;
+    try {
+        const link = await Link.findByPk(linkData.linkId);
+        console.log(link);
+        link.linkClicks = link.linkClicks + 1;
+        link.save();
 
-    const link = await Link.findByPk(linkId);
+        return res.status(200).json("Added one");
+    } catch (error) {
 
-    link.linkClicks = link.linkClicks + 1;
-    link.save();
-
-    return res.status(200).json("Added one");
+    }
 }
 
 export async function getTotalClicks(req, res) {

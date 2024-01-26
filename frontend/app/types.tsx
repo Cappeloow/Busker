@@ -25,6 +25,7 @@ export interface ILink {
     icon:string,
     title: string,
     url:string,
+    linkClicks?: number,
 };
 
 // AVAILABILITY

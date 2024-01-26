@@ -1,8 +1,7 @@
 import { getAllLinks } from '@/app/services/services';
 import CreateLinks from './CreateLinks';
 import { ILink } from '@/app/types';
-import DeleteLink from './DeleteLink';
-
+import LinkComponent from './LinkComponent';
 type Props = {
   userId: string;
   isAuth: string;
@@ -14,10 +13,9 @@ export default async function LinkSection({ userId, isAuth }: Props) {
   return (
     <div>
       {links.map((link:ILink) => (
-        <div key={link.linkId}>
-          <h1>{link.title}</h1>
-          { isAuth === userId && <DeleteLink id={link.linkId!}/>}
-        </div>
+                <div key={link.linkId}>
+      <LinkComponent isAuth={isAuth} userId={userId} link={link}/>
+      </div>
       ))}
       <CreateLinks isAuth={isAuth} />
     </div>

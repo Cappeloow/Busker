@@ -32,6 +32,7 @@ const Link = sequelize.define('links', {
     },
     linkClicks: {
         type: DataTypes.INTEGER,
+        defaultValue: 0
     }
 });
 sequelize.sync();
