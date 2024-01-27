@@ -26,7 +26,7 @@ function LinkComponent({link,userId,isAuth}: Props) {
     <>  
   
   <h1 onClick={handleLinkClick}>Go to {link.title}</h1>
-  <p>Amount of visits: {link.linkClicks?.toString()}</p>
+  <p>CLICKS: {link.linkClicks?.toString()}</p>
           { isAuth === userId && <DeleteLink id={link.linkId!}/>}
     </>
   )

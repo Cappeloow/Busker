@@ -18,9 +18,9 @@ function DeleteLink({ id }: Props) {
     };
   
     return (
-      <div>
-        <button onClick={handleDelete}>Delete</button>
-      </div>
+      <>
+        <button className="delete_link_btn" onClick={handleDelete}>Delete</button>
+      </>
     );
   }
   

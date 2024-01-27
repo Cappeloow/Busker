@@ -1,0 +1,95 @@
+@import "../breakpoints.scss";
+@import "../variables.scss";
+@import "../colors.scss";
+
+
+.userprofile-main {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 10px;
+
+    .imageSection {}
+
+    .linkSection {
+        border: $base-border-settings;
+        padding: $base-padding;
+        margin: $base-margin;
+        border-radius: $base-border-radius;
+        box-shadow: $base-box-shadow;
+
+
+        .create_link_section {
+            margin: $base-margin;
+            padding: $base-padding;
+
+            .open_form_btn {
+                margin: 5px;
+                padding: 5px;
+                border-radius: $base-border-radius;
+                border: $base-border-settings;
+                cursor: pointer;
+                transition: 1s;
+            }
+
+            .open_form_btn:hover {
+                transition: 1s;
+                color: map-get($colors, 'black');
+                background-color: map-get($colors, "yellow");
+            }
+
+
+            .create_link_form {}
+
+            .create_link_form>input,
+            select,
+            button {
+                border: $base-border-settings;
+                border-radius: $base-border-radius;
+                padding: 5px;
+                margin: 5px;
+
+            }
+
+
+        }
+
+        .link_component {
+            border: $base-border-settings;
+            padding: $base-padding;
+            margin: $base-margin;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(0, 0, 0, 0.103);
+            border-radius: $base-border-radius/2;
+            transition: 1s;
+        }
+
+        .link_component:hover {
+            transition: 1s;
+            background-color: map-get($colors, baby-blue);
+            cursor: pointer;
+        }
+
+        .link_component>* {
+            padding: 5px;
+            margin: 5px;
+        }
+
+        .delete_link_btn {
+            margin: 5px;
+            padding: 5px;
+            border-radius: $base-border-radius;
+            border: $base-border-settings;
+            cursor: pointer;
+            transition: 1s;
+            background: map-get($colors, crazy-pink)
+        }
+    }
+
+    .calender {}
+}

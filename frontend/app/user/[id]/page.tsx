@@ -12,7 +12,7 @@ export default async function Page({ params }: { params: { id: string } }) {
   const url = await getUserImg(id); 
   if (url) URL.revokeObjectURL(url);
   return (
-    <main>
+    <main className="userprofile-main">
       <ImageComponent height={350} width={350} id={id}/>
       <Link href={`/user/${id}/my-qr`}>
         <button>MY QR </button>
