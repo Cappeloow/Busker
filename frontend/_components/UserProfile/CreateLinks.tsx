@@ -3,7 +3,6 @@ import { ILink } from '@/app/types';
 import React, { useEffect, useState } from 'react';
 import { createLink } from '@/app/services/services';
 import { useRouter, useParams } from 'next/navigation';
-import { FaFacebook, FaInstagram, FaTwitter, FaLinkedin } from 'react-icons/fa'; // Import specific icons from react-icons
 import { socialMediaTitles } from '@/app/config';
 type Props = {
   isAuth:string
@@ -27,16 +26,6 @@ const [linkData, setLinkData] = useState<ILink>({
     setIsCreateLinkOpen(false);
   };
   
-
-  const iconOptions = [
-    { shortName: 'FB', icon: <FaFacebook /> },
-    { shortName: 'IG', icon: <FaInstagram /> },
-    { shortName: 'TW', icon: <FaTwitter /> },
-    { shortName: 'LI', icon: <FaLinkedin /> },
-    // Add more icon options as needed
-  ];
-  
-
   return (
   <>
   {isAuth === id && (

@@ -86,9 +86,15 @@
             border-radius: $base-border-radius;
             border: $base-border-settings;
             cursor: pointer;
+            font-size: 25px;
+            text-align: center;
             transition: 1s;
-            background: map-get($colors, crazy-pink)
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
+
+        .delete_link_btn:hover {}
     }
 
     .calender {}
