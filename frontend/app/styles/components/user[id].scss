@@ -120,5 +120,68 @@
         .delete_link_btn:hover {}
     }
 
-    .calender {}
+    .calender_section {
+        border: $base-border-settings;
+        padding: $base-padding;
+        margin: $base-margin;
+        border-radius: $base-border-radius;
+        box-shadow: $base-box-shadow;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+
+        .open_availability_form_btn {
+            font-size: 40px;
+        }
+
+        .create_availability_form {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: row;
+        }
+
+        .create_availability_form>input,
+        button {
+            border: $base-border-settings;
+            border-radius: $base-border-radius;
+            padding: 5px;
+            margin: 5px;
+        }
+
+        .availability_list {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .availability_component {
+            position: relative;
+            border: $base-border-settings;
+            padding: $base-padding;
+            margin: $base-margin;
+            width: 250px;
+            height: 250px;
+
+            .availability_form_section {
+                position: Absolute;
+                width: 200px;
+                height: 200px;
+                z-index: 5;
+                box-shadow: map-get($colors, box-shadow);
+                border: $base-border-settings;
+                border-radius: $base-border-radius;
+            }
+
+            .availability_form_section>form>input,
+            button {
+                border: $base-border-settings;
+                border-radius: $base-border-radius;
+                padding: 5px;
+                margin: 5px;
+
+            }
+        }
+    }
 }
