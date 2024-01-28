@@ -11,13 +11,13 @@ export default async function LinkSection({ userId, isAuth }: Props) {
         const links = await getAllLinks(userId);
 
   return (
-    <div>
+    <div className='linkSection'>
+      <CreateLinks isAuth={isAuth} />
       {links.map((link:ILink) => (
-                <div key={link.linkId}>
+                <div key={link.linkId} className='link_component'>
       <LinkComponent isAuth={isAuth} userId={userId} link={link}/>
       </div>
       ))}
-      <CreateLinks isAuth={isAuth} />
     </div>
   );
 }

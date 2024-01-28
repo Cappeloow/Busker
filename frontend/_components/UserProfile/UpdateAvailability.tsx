@@ -3,6 +3,8 @@ import {useEffect, useState} from 'react';
 import { updateAvailability } from '@/app/services/actions';
 import { useParams } from 'next/navigation';
 import { IAvailability } from '@/app/types';
+import { FaEdit } from "react-icons/fa";
+import { FaMinusCircle } from "react-icons/fa";
 type Props = {
   availabilityId:string,
   date:string,
@@ -15,11 +17,9 @@ type Props = {
 
 function UpdateAvailability({availabilityId, date, status, description, location, bookingTime,isAuth}: Props) {
   const {id} = useParams();
-
+  const [isFormOpen, setFormIsOpen] = useState(false);
   //update the availability
-  // handle data
-
- // handle data 
+  
  const [availabilityData, setAvailabilityData] = useState<IAvailability>({
   availabilityId,
   date,
@@ -32,7 +32,8 @@ function UpdateAvailability({availabilityId, date, status, description, location
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    await updateAvailability(availabilityData);
+    setFormIsOpen(false);
+    await updateAvailability(availabilityData).finally(() => window.location.reload());
   };
 
 
@@ -40,8 +41,9 @@ function UpdateAvailability({availabilityId, date, status, description, location
 
   return (
     <>
-    {isAuth === id && (
-      <div>
+    {!isFormOpen ? <FaEdit onClick={() => setFormIsOpen(true)}/> : <FaMinusCircle onClick={() => setFormIsOpen(false)}/> }
+    {isFormOpen &&  (
+      <div className='availability_form_section'>
         <form onSubmit={handleSubmit}>
           <input
             type="text"
@@ -81,8 +83,7 @@ function UpdateAvailability({availabilityId, date, status, description, location
           <button type="submit">Send it</button>
         </form>
       </div> )}
-    </>
+      </>
     );
 }
-
 export default UpdateAvailability

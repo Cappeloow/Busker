@@ -12,13 +12,15 @@ async function Calender(props: Props) {
     const {userId,isAuth} = props;
     const availabilities = await getAllAvailabilities(userId);
   return (
-    <div>
+    <div className='calender_section'>
         <h1>My Calender</h1>
+        <CreateAvailability isAuth={isAuth}/>
+        <div className='availability_list'>
         {availabilities.map((availability:IAvailability) => (
-            <div key={availability.availabilityId}>
+            <div key={availability.availabilityId} className='availability_component'>
+                <h2>{availability.location && availability.location}</h2>
                 <h3>{availability.date}</h3>
                 <p>{availability.description}</p>
-                <p>{availability.location && availability.location}</p>
                 {/*CHECKING THE CURRENT STATUS OF THE DATE*/}
                 {
                     availability.status === 'Available' ? (
@@ -36,10 +38,10 @@ async function Calender(props: Props) {
                     )
                     }
 
-                <UpdateAvailability isAuth={isAuth} availabilityId={availability.availabilityId!} description={availability.description} date={availability.date} status={availability.status!} location={availability.location!} bookingTime={availability.bookingTime!} />
+                {isAuth === userId && <UpdateAvailability isAuth={isAuth} availabilityId={availability.availabilityId!} description={availability.description} date={availability.date} status={availability.status!} location={availability.location!} bookingTime={availability.bookingTime!} />}
             </div>
         ))}
-        <CreateAvailability isAuth={isAuth}/>
+        </div>
     </div>
   )
 }

@@ -2,8 +2,9 @@
 import { ILink } from '@/app/types';
 import React, { useEffect, useState } from 'react';
 import { createLink } from '@/app/services/services';
-import { useFormState } from 'react-dom';
 import { useRouter, useParams } from 'next/navigation';
+import { socialMediaTitles } from '@/app/config';
+import { FaCirclePlus } from "react-icons/fa6";
 type Props = {
   isAuth:string
 };
@@ -11,6 +12,7 @@ type Props = {
 export default function CreateLinks({isAuth}: Props) {
   const router = useRouter();
   const {id} = useParams();
+  const [isCreateLinkOpen, setIsCreateLinkOpen] = useState<boolean>(false);
 const [linkData, setLinkData] = useState<ILink>({
   icon: '',
   title: '',
@@ -22,13 +24,18 @@ const [linkData, setLinkData] = useState<ILink>({
     await createLink(linkData).finally(() => {
       router.refresh();
     });
+    setIsCreateLinkOpen(false);
   };
-
+  
   return (
   <>
   {isAuth === id && (
-    <div>
-      <form onSubmit={handleSubmit}>
+    <div className='create_link_section'>
+      {!isCreateLinkOpen &&
+      <FaCirclePlus onClick={() => setIsCreateLinkOpen(true)} className='open_form_btn'/>
+    }
+      
+      {isCreateLinkOpen && <form onSubmit={handleSubmit} className='create_link_form'>
         <input
           type="text"
           placeholder="ICON"
@@ -36,13 +43,19 @@ const [linkData, setLinkData] = useState<ILink>({
           value={linkData.icon}
           onChange={(e) => setLinkData({ ...linkData, icon: e.target.value })}
         />
-        <input
-          type="text"
-          placeholder="TITLE"
-          name="title"
-          value={linkData.title}
-          onChange={(e) => setLinkData({ ...linkData, title: e.target.value })}
-        />
+      <select
+                value={linkData.title}
+                onChange={(e) => setLinkData({ ...linkData, title: e.target.value })}
+              >
+                <option value='' disabled>
+                  Select Title
+                </option>
+                {socialMediaTitles.map((title, index) => (
+                  <option key={index} value={title}>
+                    {title}
+                  </option>
+                ))}
+      </select>
         <input
           type="text"
           placeholder="URL"
@@ -51,7 +64,7 @@ const [linkData, setLinkData] = useState<ILink>({
           onChange={(e) => setLinkData({ ...linkData, url: e.target.value })}
         />
         <button type="submit">Send it</button>
-      </form>
+      </form>}
     </div> )}
   </>
   );
