@@ -24,7 +24,7 @@ const QrCodeImage = (props: Props) => {
     }, []);
   
     return (
-      <div>
+      <div className='my_qr_div'>
         {qrCode && (
           <img
             src={`${qrCode}`}

@@ -7,7 +7,7 @@ export default async function Page({ params }: { params: { id: string } }) {
     const {id} = params;
     const isAuth = await authStatus();
   return (
-    <main>
+    <main className='myqr-main'>
       <QrCodeImage id={id}/>
       { isAuth?.userId === id && <GoToStoreButton/>}
     </main>

@@ -19,9 +19,7 @@ function UpdateAvailability({availabilityId, date, status, description, location
   const {id} = useParams();
   const [isFormOpen, setFormIsOpen] = useState(false);
   //update the availability
-  // handle data
-
- // handle data 
+  
  const [availabilityData, setAvailabilityData] = useState<IAvailability>({
   availabilityId,
   date,
@@ -44,7 +42,7 @@ function UpdateAvailability({availabilityId, date, status, description, location
   return (
     <>
     {!isFormOpen ? <FaEdit onClick={() => setFormIsOpen(true)}/> : <FaMinusCircle onClick={() => setFormIsOpen(false)}/> }
-    {isAuth === id && isFormOpen &&  (
+    {isFormOpen &&  (
       <div className='availability_form_section'>
         <form onSubmit={handleSubmit}>
           <input

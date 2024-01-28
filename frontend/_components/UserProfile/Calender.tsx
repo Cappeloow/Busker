@@ -38,7 +38,7 @@ async function Calender(props: Props) {
                     )
                     }
 
-                <UpdateAvailability isAuth={isAuth} availabilityId={availability.availabilityId!} description={availability.description} date={availability.date} status={availability.status!} location={availability.location!} bookingTime={availability.bookingTime!} />
+                {isAuth === userId && <UpdateAvailability isAuth={isAuth} availabilityId={availability.availabilityId!} description={availability.description} date={availability.date} status={availability.status!} location={availability.location!} bookingTime={availability.bookingTime!} />}
             </div>
         ))}
         </div>

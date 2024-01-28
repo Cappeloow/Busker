@@ -19,7 +19,7 @@ export default async function Page({ params }: { params: { id: string } }) {
         <MdQrCodeScanner className="QR_code_icon"/>
       </Link>
         {/* @ts-expect-error Server Component */}
-      <UserDetailsComponent userId={id}/>
+      <UserDetailsComponent isAuth={isAuth?.userId} userId={id}/>
        {/* @ts-expect-error Server Component */}
       <LinkSection isAuth={isAuth?.userId} userId={id}/>
        {/* @ts-expect-error Server Component */}
