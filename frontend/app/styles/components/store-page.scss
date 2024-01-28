@@ -1,0 +1,50 @@
+@import "../breakpoints.scss";
+@import "../variables.scss";
+@import "../colors.scss";
+
+
+
+.store_main {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+
+    .product_section {
+        padding: $base-padding;
+        margin: $base-margin;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        flex-direction: center;
+        flex-wrap: wrap;
+    }
+
+    .product_card {
+        height: 500px;
+        max-width: 300px;
+        border: $base-border-settings;
+        border-radius: $base-border-radius;
+        margin: $base-margin;
+        padding: $base-padding;
+
+        button {
+            width: 100px;
+            height: 40px;
+            background-color: map-get($colors, baby-blue);
+        }
+    }
+
+
+    .cart_section {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .cart_item {
+            margin: $base-margin;
+            padding: $base-padding;
+        }
+    }
+}

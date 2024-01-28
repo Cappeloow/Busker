@@ -8,8 +8,9 @@ export default async function Page({ params }: { params: { id: string } }) {
     const isAuth = await authStatus();
   return (
     <main className='myqr-main'>
+  {/* @ts-expect-error Server Component */}
       <QrCodeImage id={id}/>
-      { isAuth?.userId === id && <GoToStoreButton/>}
+      { isAuth?.userId === id && <GoToStoreButton />}
     </main>
   )
 }

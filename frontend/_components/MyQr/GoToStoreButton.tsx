@@ -7,7 +7,7 @@ function GoToStoreButton({}: Props) {
   return (
     <>
         <Link href={`/store`}>
-            <button>MY STORE</button>
+            <button className='go_to_store_btn'>STORE</button>
         </Link>
     </>
   )

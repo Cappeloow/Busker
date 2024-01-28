@@ -59,21 +59,22 @@ const page = (props: Props) => {
     };
 
     return (
-      <main>
-        {products && products.map((product:IProduct) => (
-          <div key={product.id}>
-            <h1>{product.name}</h1>
-            <p>{product.price}</p>
-            <p>{product.description}</p>
-            <button onClick={() => addProduct(product)}>+</button>
-            <button onClick={() => { /* Handle subtraction */ }}>-</button>
-          </div>
-        ))}
+      <main className='store_main'>
+        <div className='product_section'>
+            {products && products.map((product:IProduct) => (
+              <div key={product.id} className='product_card'>
+                <h1>{product.name}</h1>
+                <p>{product.price}</p>
+                <p>{product.description}</p>
+                <button onClick={() => addProduct(product)}>+</button>
+              </div>
+            ))}
+        </div>
 
-        <div>
+        <div className='cart_section'>
 
           {cart.map((cartItem, index) =>(
-            <div key={index}>
+            <div key={index} className='cart_item'>
               <p>{cartItem.name} </p>
               <p>{cartItem.price * cartItem.quantity} kr </p>
               <p> {cartItem.quantity} x</p>

@@ -13,4 +13,10 @@
     flex-direction: column;
     padding: 10px;
 
+
+    .go_to_store_btn {
+        width: 100px;
+        height: 30px;
+        background-color: map-get($colors, baby-blue);
+    }
 }
