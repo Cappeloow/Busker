@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { createLink } from '@/app/services/services';
 import { useRouter, useParams } from 'next/navigation';
 import { socialMediaTitles } from '@/app/config';
+import { FaCirclePlus } from "react-icons/fa6";
 type Props = {
   isAuth:string
 };
@@ -30,9 +31,9 @@ const [linkData, setLinkData] = useState<ILink>({
   <>
   {isAuth === id && (
     <div className='create_link_section'>
-      {!isCreateLinkOpen &&<button onClick={() => setIsCreateLinkOpen(true)} className='open_form_btn'>
-       Add a link  +
-      </button>}
+      {!isCreateLinkOpen &&
+      <FaCirclePlus onClick={() => setIsCreateLinkOpen(true)} className='open_form_btn'/>
+    }
       
       {isCreateLinkOpen && <form onSubmit={handleSubmit} className='create_link_form'>
         <input

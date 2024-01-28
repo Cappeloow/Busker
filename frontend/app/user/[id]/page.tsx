@@ -4,7 +4,8 @@ import Link from "next/link";
 import Calender from "@/_components/UserProfile/Calender";
 import ImageComponent from "@/_components/UserProfile/ImageComponent";
 import { authStatus } from "@/app/services/SSRAuth";
-
+import { MdQrCodeScanner } from "react-icons/md";
+import UserDetailsComponent from "@/_components/UserProfile/UserDetailsComponent";
 // {/* @ts-expect-error Server Component */}
 export default async function Page({ params }: { params: { id: string } }) {
   const {id} = params;
@@ -15,8 +16,10 @@ export default async function Page({ params }: { params: { id: string } }) {
     <main className="userprofile-main">
       <ImageComponent height={350} width={350} id={id}/>
       <Link href={`/user/${id}/my-qr`}>
-        <button>MY QR </button>
+        <MdQrCodeScanner className="QR_code_icon"/>
       </Link>
+        {/* @ts-expect-error Server Component */}
+      <UserDetailsComponent userId={id}/>
        {/* @ts-expect-error Server Component */}
       <LinkSection isAuth={isAuth?.userId} userId={id}/>
        {/* @ts-expect-error Server Component */}

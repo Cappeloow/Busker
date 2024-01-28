@@ -14,6 +14,27 @@
 
     .imageSection {}
 
+
+    .QR_code_icon {
+        font-size: 40px;
+        border: $base-border-settings;
+        border-radius: $base-border-radius;
+        box-shadow: $base-box-shadow;
+    }
+
+    .user_details_section {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        border: $base-border-settings;
+        padding: $base-padding;
+        margin: $base-margin;
+        border-radius: $base-border-radius;
+        box-shadow: $base-box-shadow;
+    }
+
+
     .linkSection {
         border: $base-border-settings;
         padding: $base-padding;
@@ -25,20 +46,22 @@
         .create_link_section {
             margin: $base-margin;
             padding: $base-padding;
+            position: relative;
 
             .open_form_btn {
+                left: 10px;
+                position: absolute;
                 margin: 5px;
                 padding: 5px;
-                border-radius: $base-border-radius;
-                border: $base-border-settings;
+                font-size: 40px;
                 cursor: pointer;
                 transition: 1s;
+                color: purple;
             }
 
             .open_form_btn:hover {
                 transition: 1s;
-                color: map-get($colors, 'black');
-                background-color: map-get($colors, "yellow");
+                color: map-get($colors, yellow);
             }
 
 
