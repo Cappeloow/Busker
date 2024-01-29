@@ -125,20 +125,7 @@ export const uploadImage = async (formData: FormData) => {
 
 
 
-  export const getAllUserOrders = async () => {
-    const response = await fetch(`${BUSKER_BACKEND_URL}/order`, 
-    { 
-    method: 'GET', 
-    credentials:'include',
-    headers:{
-      'Accept': 'application/json',  
-      'Content-Type': 'application/json',
-    }
-  })
 
-  const data = await response.json();
-  return data;
-  }
 
      /*
    *   L      III   N   N K   K SSSS
