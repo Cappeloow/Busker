@@ -125,12 +125,28 @@ export async function getOrder(req, res) {
 
         const ordersWithItems = await Promise.all(
             orders.map(async (order) => {
-                const orderItems = await OrderItem.findAll({ where: { orderId: order.orderId } });
-                return { order, orderItems };
+                const orderItems = await OrderItem.findAll({
+                    attributes: [
+                        'orderItemId',
+                        'productId',
+                        'price',
+                        'quantity',
+                        'orderId',
+                    ],
+                    where: { orderId: order.orderId },
+                    raw: true, // Ensure raw data values
+                });
+
+                console.log("THIS IS THE ORDER ITEMS:", orderItems); // Log the entire array
+
+                return {
+                    order: order.get({ plain: true }),
+                    orderItems,
+                };
             })
         );
 
-        res.status(200).json({ ordersWithItems });
+        res.status(200).json(ordersWithItems);
     } catch (error) {
         console.error('Error retrieving orders and order items:', error);
         res.status(500).json({ error: 'Internal Server Error' });

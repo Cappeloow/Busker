@@ -15,7 +15,7 @@ export default async function Page({ params }: { params: { id: string } }) {
   if (url) URL.revokeObjectURL(url);
   return (
     <main className="userprofile-main">
-      <ImageComponent height={350} width={350} id={id} isAuth={isAuth.userId}/>
+      <ImageComponent height={350} width={350} id={id} isAuth={isAuth?.userId}/>
       <Link href={`/user/${id}/my-qr`}>
         <MdQrCodeScanner className="QR_code_icon"/>
       </Link>

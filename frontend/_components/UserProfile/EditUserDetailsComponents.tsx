@@ -25,7 +25,7 @@ const EditUserDetailsComponent: React.FC<UserDetailsFormProps> = ({ user }) => {
   
   return (
     <>
-    <FaEdit onClick={() => setIsOpen(true)}/>
+    <FaEdit  style={{fontSize:'25px', marginLeft:'10px'}} onClick={() => setIsOpen(true)}/>
       {isOpen && <form onSubmit={handleSubmit}>
         <label>
           Artist Name:
