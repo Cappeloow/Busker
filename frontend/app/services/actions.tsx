@@ -1,6 +1,8 @@
-import { ResponseCookies } from "next/dist/compiled/@edge-runtime/cookies";
-import { ICartItem, IAvailability } from "../types";
+import { ICartItem, IAvailability, ILink } from "../types";
 export const BUSKER_BACKEND_URL = "http://localhost:5000"
+
+/// ALL THE POSTS, DELETES AND PUTS (CLIENT ONLY)
+
 
    /*
    *   OOO   RRRR   DDDD  EEEE  RRRR  SSSS
@@ -11,15 +13,7 @@ export const BUSKER_BACKEND_URL = "http://localhost:5000"
    */
 
    export const createOrder = async (orderItems:Array<ICartItem>) => {
-    //   const orderItems = [
-    //     {
-    //       "name": "Busker QR Sign",
-    //       "description": "This is your unique Busker Sign. When your out on the street och playing on a Pub, do not forget to bring your sign in order to really connect with your fans!",
-    //       "price": 199,
-    //       "quantity": 2
-    //     },
-    // ]
-    
+
     const response = await fetch(`${BUSKER_BACKEND_URL}/order/create-checkout-session`, {
       method: 'POST',
       body: JSON.stringify(orderItems),
@@ -121,6 +115,30 @@ export const BUSKER_BACKEND_URL = "http://localhost:5000"
    *   LLLLL  III   N   N K   K SSSS
    */
 
+   export const createLink = async (linkData:ILink) => {    
+    try {
+      const response = await fetch(`${BUSKER_BACKEND_URL}/link/create`, {
+        method: 'POST',
+        body: JSON.stringify(linkData),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        credentials: 'include',
+      });
+  
+      if (!response.ok) {
+        // Handle error, e.g., throw an exception or log the error
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+  
+      const data = await response.json();
+      console.log('Link created successfully:', data);
+    } catch (error) {
+      console.error('Error creating link:', error);
+    }
+  };
+
 
    export const deleteLink = async (linkId:string) => {
     const response = await fetch(`${BUSKER_BACKEND_URL}/link/delete`,{
@@ -182,3 +200,15 @@ export const updateUserDetails = async (userDetails:any) => {
   console.log(data);
 
 }
+
+
+export const uploadImage = async (formData: FormData) => {
+  // Remove the 'Content-Type' header and stringify the body
+  const response = await fetch(`${BUSKER_BACKEND_URL}/user/uploadProfileImg`, {
+    method: "POST",
+    body: formData,
+    credentials: 'include',
+  });
+  console.log(await response.json());
+
+};

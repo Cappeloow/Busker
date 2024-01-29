@@ -7,6 +7,10 @@ import { authStatus } from "@/app/services/SSRAuth";
 import { MdQrCodeScanner } from "react-icons/md";
 import UserDetailsComponent from "@/_components/UserProfile/UserDetailsComponent";
 // {/* @ts-expect-error Server Component */}
+
+// here is the most of the components and also the page that we come to after we authenticate,
+// your own profile page that you can perform functions and display things.
+
 export default async function Page({ params }: { params: { id: string } }) {
   const {id} = params;
   const user = await getUserById(id);

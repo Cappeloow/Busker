@@ -5,6 +5,8 @@ import TotalClicksComponent from '@/_components/Explore/TotalClicksComponent';
 import Link from 'next/link';
 import ImageComponent from '@/_components/UserProfile/ImageComponent';
 import { IUser } from '../types';
+
+//Explore is meant to showcase all the users that exists in the db, they're listed by most amount of clicks on their social media platforms.
 export default async function Page ({}: Props) {  
     const users = await getAllUsers();
   return (

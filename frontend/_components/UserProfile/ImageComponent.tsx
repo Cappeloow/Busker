@@ -12,6 +12,7 @@ type Props = {
 
 function ImageComponent({id, height, width, isAuth}: Props) {
   const [isOpen, setIsOpen] = useState(false);
+  
       function UserImage( id: string) {
     const [url, setUrl] = useState<string | null>(null);
     useEffect(() => {

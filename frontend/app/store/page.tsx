@@ -7,7 +7,7 @@ import { redirect } from 'next/navigation';
 type Props = {}
 
 
-
+//This pages contains products from stripe, a simple cart system that keeps count of quantity, price and how many items we've got in our cart.
 
 const page = (props: Props) => {
     const [cart, setCart] = useState<ICartItem[] | []>([]);

@@ -1,7 +1,7 @@
 "use client"
 import { ILink } from '@/app/types';
 import React, { useEffect, useState } from 'react';
-import { createLink } from '@/app/services/services';
+import { createLink } from '@/app/services/actions';
 import { useRouter, useParams } from 'next/navigation';
 import { socialMediaTitles } from '@/app/config';
 import { FaCirclePlus } from "react-icons/fa6";

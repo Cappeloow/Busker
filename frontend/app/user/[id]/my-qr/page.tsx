@@ -3,6 +3,7 @@ import GoToStoreButton from '@/_components/MyQr/GoToStoreButton'
 import { authStatus } from '@/app/services/SSRAuth'
 type Props = {}
 
+//displaying the QR and the store btn if (auth)
 export default async function Page({ params }: { params: { id: string } }) {
     const {id} = params;
     const isAuth = await authStatus();

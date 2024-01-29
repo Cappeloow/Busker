@@ -1,6 +1,6 @@
 "use client"
 import React, { useState, ChangeEvent, FormEvent } from 'react';
-import { uploadImage } from '@/app/services/services';
+import { uploadImage } from '@/app/services/actions';
 import { RiFolderUploadFill } from "react-icons/ri";
 type Props = {}
 
