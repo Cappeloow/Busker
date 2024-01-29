@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 import { ILink } from '@/app/types';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import DeleteLink from './DeleteLink';
 import { addAmountToLink } from '@/app/services/actions';
 import { iconMapping } from '@/app/config';
@@ -15,13 +16,16 @@ type Props = {
 
 
 function LinkComponent({ link, userId, isAuth }: Props) {
+  const router = useRouter();
   const { linkId, title } = link;
 
   const handleLinkClick = async () => {
     console.log(linkId);
 
     try {
-      await addAmountToLink(linkId!, userId);
+      await addAmountToLink(linkId!, userId).finally(() => {
+        router.refresh();
+      });
       window.open(link.url.startsWith('http') ? link.url : 'http://' + link.url, '_blank');
     } catch (error) {
       console.error('Error adding amount to link:', error);
