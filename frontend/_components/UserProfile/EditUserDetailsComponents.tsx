@@ -1,5 +1,6 @@
 'use client';
 import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { FaEdit } from 'react-icons/fa';
 import { updateUserDetails } from '@/app/services/actions';
 import { IUserDetails } from '@/app/types';
@@ -10,6 +11,7 @@ type UserDetailsFormProps = {
 };
 
 const EditUserDetailsComponent: React.FC<UserDetailsFormProps> = ({ user }) => {
+  const router = useRouter();
   const [formData, setFormData] = useState<IUserDetails>(user);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -17,10 +19,12 @@ const EditUserDetailsComponent: React.FC<UserDetailsFormProps> = ({ user }) => {
     setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    updateUserDetails(formData);
-    setIsOpen(false);
+    await updateUserDetails(formData).finally(() => {
+      router.refresh();
+      setIsOpen(false);
+    });
   };
   
   return (

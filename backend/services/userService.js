@@ -2,10 +2,12 @@ import QRCode from 'qrcode';
 import { createCanvas, loadImage } from 'canvas';
 
 export default async function generateQRCode(id) {
+    // the specific url for the QR Code
     const userURL = `${process.env.BUSKER_URL}user/${id}`;
     const canvas = createCanvas(300, 300);
 
     try {
+        // adding colors and icon using createCanvas
         const qrOptions = {
             errorCorrectionLevel: 'H',
             margin: 4, // Border size (adjust as needed)
@@ -14,9 +16,7 @@ export default async function generateQRCode(id) {
                 light: '#002332'
             }
         };
-
         await QRCode.toCanvas(canvas, userURL, qrOptions);
-
         const icon = await loadImage('./icons/musical-note.png');
         const x = (canvas.width - icon.width) / 2;
         const y = (canvas.height - icon.height) / 2;

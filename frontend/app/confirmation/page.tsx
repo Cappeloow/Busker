@@ -4,6 +4,8 @@ import { getOrderConfirmation } from '../services/actions';
 import { IOrder, IOrderItem } from '../types';
 type Props = {}
 
+//Recieve the order confirmation if successful, all the asked data from the backend.
+
 function page({}: Props) {
   const [order, setOrder] = useState<IOrder | null>(null);
   useEffect(() => {

@@ -1,5 +1,7 @@
+
 import { FaFacebook, FaInstagram, FaTwitter, FaLinkedin } from 'react-icons/fa';
 
+// store the titles for the icon matching
 export const socialMediaTitles = [
     'Facebook',
     'Instagram',
@@ -9,6 +11,7 @@ export const socialMediaTitles = [
 ];
 
 
+// store the icons
 export const iconMapping = {
     Facebook: FaFacebook,
     Instagram: FaInstagram,

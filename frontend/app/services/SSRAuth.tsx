@@ -1,3 +1,5 @@
+// These functions were used when we had to look for the cookie on the backend because of SSR Components 
+
 import { BUSKER_BACKEND_URL } from "./services";
 import { headers } from "next/headers";
 export const authStatus = async () => {

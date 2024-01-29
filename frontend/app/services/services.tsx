@@ -1,6 +1,9 @@
 import { redirect } from "next/dist/server/api-utils";
 import {headers} from 'next/headers';
 import { ILink } from "../types";
+
+
+//ALL THE GETTERS 
 export const BUSKER_BACKEND_URL = "http://localhost:5000"
 export const BUSKER_FRONTEND_URL = "http://localhost:3000"
 
@@ -48,11 +51,8 @@ export const getSpecificProduct = async (id: string) => {
 
 
  export const getUserById = async (id: string) => {
- const response = await fetch(`${BUSKER_BACKEND_URL}/user/${id}`,{
-    next:{
-      revalidate: 1
-    }
-  });
+ const response = await fetch(`${BUSKER_BACKEND_URL}/user/${id}`, 
+  {cache:'no-store'});
   const data = await response.json();
   return data;
  }
@@ -103,18 +103,6 @@ export const generateQRCode = async (id:string) =>  {
 
 
 
-export const uploadImage = async (formData: FormData) => {
-  // Remove the 'Content-Type' header and stringify the body
-  const response = await fetch(`${BUSKER_BACKEND_URL}/user/uploadProfileImg`, {
-    method: "POST",
-    body: formData,
-    credentials: 'include',
-  });
-  console.log(await response.json());
-
-  // Rest of your code...
-};
-
    /*
    *   OOO   RRRR   DDDD  EEEE  RRRR  SSSS
    *  O   O  R   R D   D E     R   R S
@@ -157,29 +145,6 @@ export const uploadImage = async (formData: FormData) => {
      }
 
 
-     export const createLink = async (linkData:ILink) => {    
-      try {
-        const response = await fetch(`${BUSKER_BACKEND_URL}/link/create`, {
-          method: 'POST',
-          body: JSON.stringify(linkData),
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-          },
-          credentials: 'include',
-        });
-    
-        if (!response.ok) {
-          // Handle error, e.g., throw an exception or log the error
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-    
-        const data = await response.json();
-        console.log('Link created successfully:', data);
-      } catch (error) {
-        console.error('Error creating link:', error);
-      }
-    };
     
 
        /*

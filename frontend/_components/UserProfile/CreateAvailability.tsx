@@ -5,6 +5,7 @@ import { useParams } from 'next/navigation';
 import { IAvailability } from '@/app/types';
 import { FaCirclePlus } from "react-icons/fa6";
 import { FaMinusCircle } from "react-icons/fa";
+import { useRouter } from 'next/navigation';
 type Props = {
   isAuth:string
 }
@@ -12,7 +13,7 @@ type Props = {
 function CreateAvailability({isAuth}: Props) {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const {id} = useParams();
-
+  const router = useRouter();
   // handle data 
   const [availabilityData, setAvailabilityData] = useState<IAvailability>({
     date: '',
@@ -22,7 +23,9 @@ function CreateAvailability({isAuth}: Props) {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsFormOpen(false);
-    await createAvailability(availabilityData);
+    await createAvailability(availabilityData).finally(() => {
+      router.refresh();
+    });
   };
 
 

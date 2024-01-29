@@ -40,7 +40,7 @@ authRouter.get('/auth/google/failure', (req, res) => {
     res.send('Failed to authenticate..');
 });
 
-
+// using this for SSR, to check with the server if we're still authenticated (got it in all the pages because they're SSR currently)
 authRouter.get('/auth/status', (req, res) => {
     if (!req.user) {
         return res.status(401).send('Unauthorized');

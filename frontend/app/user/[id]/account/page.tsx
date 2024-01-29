@@ -2,6 +2,8 @@ import { getAllUserOrders } from '@/app/services/SSRAuth';
 import { IOrder, IOrderItem } from '@/app/types';
 type Props = {};
 
+
+// displaying all the orders the user have and all the orderitems
 async function page({}: Props) {
   const orderList = await getAllUserOrders();
   return (

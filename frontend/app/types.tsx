@@ -1,3 +1,5 @@
+// global interfaces so we can use them throughout the applcation
+
 //PRODUCT 
 export interface IProduct {
     id:string,

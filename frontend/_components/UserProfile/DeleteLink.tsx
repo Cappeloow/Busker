@@ -2,6 +2,7 @@
 import { deleteLink } from '@/app/services/actions';
 import {useState, useEffect} from 'react';
 import React from 'react'
+import { useRouter } from 'next/navigation';
 import { MdDelete } from "react-icons/md";
 
 type Props = {
@@ -9,9 +10,12 @@ type Props = {
 }
 
 function DeleteLink({ id }: Props) {
+  const router = useRouter();
     const handleDelete = async () => {
       try {
-        await deleteLink(id);
+        await deleteLink(id).then(() => {
+          router.refresh();
+        });
         console.log(`Link with id ${id} deleted successfully`);
       } catch (error) {
         console.error('Error deleting link:', error);
