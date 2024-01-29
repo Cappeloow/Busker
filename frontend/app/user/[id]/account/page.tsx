@@ -4,7 +4,6 @@ type Props = {};
 
 async function page({}: Props) {
   const orderList = await getAllUserOrders();
-  console.log("ORDER LIST-----:", orderList);
   return (
     <div>
       {orderList.map((order:IOrder[{}], index:number) => (

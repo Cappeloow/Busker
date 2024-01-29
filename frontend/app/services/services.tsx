@@ -136,11 +136,9 @@ export const uploadImage = async (formData: FormData) => {
    */
 
      export const getAllLinks =  async (id: string): Promise<[]>=> {
-      const response = await fetch(`${BUSKER_BACKEND_URL}/link/${id}`,{
-        next:{
-          revalidate:1
-        }
-      })
+      const response = await fetch(`${BUSKER_BACKEND_URL}/link/${id}`,
+      
+      { cache: 'no-store' })
       const data = await response.json();
       return data;
      }
@@ -194,11 +192,8 @@ export const uploadImage = async (formData: FormData) => {
 
 
        export const getAllAvailabilities = async (id:string) => {
-        const response = await fetch(`${BUSKER_BACKEND_URL}/availability/${id}`,{
-          next:{
-            revalidate: 1
-          }
-        });
+        const response = await fetch(`${BUSKER_BACKEND_URL}/availability/${id}`,{ cache: 'no-store' }
+        );
         const data = await response.json();
         return data;
        }

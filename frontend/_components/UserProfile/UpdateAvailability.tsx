@@ -1,7 +1,7 @@
 'use client';
 import {useEffect, useState} from 'react';
 import { updateAvailability } from '@/app/services/actions';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { IAvailability } from '@/app/types';
 import { FaEdit } from "react-icons/fa";
 import { FaMinusCircle } from "react-icons/fa";
@@ -16,6 +16,7 @@ type Props = {
 }
 
 function UpdateAvailability({availabilityId, date, status, description, location, bookingTime,isAuth}: Props) {
+  const router = useRouter();
   const {id} = useParams();
   const [isFormOpen, setFormIsOpen] = useState(false);
   //update the availability
@@ -33,7 +34,9 @@ function UpdateAvailability({availabilityId, date, status, description, location
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setFormIsOpen(false);
-    await updateAvailability(availabilityData).finally(() => window.location.reload());
+    await updateAvailability(availabilityData).finally(() => {
+      router.refresh();
+    })
   };
 
 
@@ -52,13 +55,15 @@ function UpdateAvailability({availabilityId, date, status, description, location
             value={availabilityData.date}
             onChange={(e) => setAvailabilityData({ ...availabilityData, date: e.target.value })}
           />
-          <input
-            type="text"
-            placeholder="status"
+          <select
             name="status"
             value={availabilityData.status}
             onChange={(e) => setAvailabilityData({ ...availabilityData, status: e.target.value })}
-          />
+          >
+            <option value="In Talks">In Talks</option>
+            <option value="Booked">Booked</option>
+            <option value="Available">Available</option>
+          </select>
            <input
             type="text"
             placeholder="bookingTime"

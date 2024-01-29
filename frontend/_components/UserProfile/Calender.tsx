@@ -21,6 +21,7 @@ async function Calender(props: Props) {
                 <h2>{availability.location && availability.location}</h2>
                 <h3>{availability.date}</h3>
                 <p>{availability.description}</p>
+                <p>Time: {availability.bookingTime}</p>
                 {/*CHECKING THE CURRENT STATUS OF THE DATE*/}
                 {
                     availability.status === 'Available' ? (
