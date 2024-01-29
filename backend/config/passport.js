@@ -7,6 +7,8 @@ dotenv.config();
 import initStripe from '../stripe.js';
 const stripe = initStripe();
 
+
+// Configure passport to use Google OAuth2 strategy
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
@@ -45,10 +47,13 @@ passport.use(new GoogleStrategy({
     }
 ));
 
+
+// Serialize user information for storing in the session
 passport.serializeUser(function (user, done) {
     done(null, user.userId);
 });
 
+// Deserialize user information from the session
 passport.deserializeUser(async function (id, done) {
     try {
         const user = await User.findByPk(id);

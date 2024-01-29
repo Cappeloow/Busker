@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 
 // Load environment variables
 dotenv.config();
-
+// Create a new Sequelize instance with database configuration
 const sequelize = new Sequelize({
     dialect: 'mysql',
     host: process.env.MYSQL_HOST,

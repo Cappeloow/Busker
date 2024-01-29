@@ -2,19 +2,26 @@ import { where } from "sequelize";
 import Availability from "../entities/availability.js";
 
 export async function createAvailability(req, res) {
+    // get the logged in user
     const userId = req.user.userId;
+
+    //get the date and description of the availability from req.body
     const { date, description } = req.body;
+
+    // search if there is a availability with that given date from req.body already
     const availabilityExist = await Availability.findOne({ where: { date: date, userId: userId } });
     if (availabilityExist) {
+        //if there is already an availability with that date send back 403
         return res.status(403).json({ message: "You are already avaiable at that date" })
     }
 
     try {
-
+        //create an availability with 
         const availability = await Availability.create({ date: date, description: description, userId: userId });
 
         res.status(200).json(availability);
     } catch (error) {
+        //sequelize errors that i built in (validation.js)
         if (error.name === 'SequelizeValidationError') {
             const validationErrors = error.errors.map(err => ({
                 message: err.message,
@@ -32,8 +39,10 @@ export async function createAvailability(req, res) {
 
 
 export async function getAllAvailabilities(req, res) {
+    // get the params so we can get the userId
     const id = req.params.id;
     try {
+        // search for all availabilities in the database matching the userId
         const availability = await Availability.findAll({ where: { userId: id } });
         res.status(200).json(availability)
     }

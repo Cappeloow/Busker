@@ -5,15 +5,17 @@ export function validateType(value, fieldName, expectedType) {
     }
 }
 
-// Usage example:
+// String checker
 export function isString(value, fieldName) {
     validateType(value, fieldName, 'string');
 }
 
+// Number checker
 export function isNumber(value, fieldName) {
     validateType(value, fieldName, 'number');
 }
 
+// Bool checker
 export function isBoolean(value, fieldName) {
     validateType(value, fieldName, 'boolean');
 }

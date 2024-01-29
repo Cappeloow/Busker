@@ -5,6 +5,7 @@ import cors from 'cors';
 import passport from 'passport';
 import session from 'express-session';
 
+// all imported routes 
 import productRouter from './routes/productRoute.js'
 import authRouter from './routes/authRoute.js';
 import userRouter from './routes/userRoute.js';
@@ -18,6 +19,7 @@ import availabilityRouter from './routes/availabilityRoute.js';
 
 const app = express();
 app.use(express.json());
+// using credentials:true to get access to the cookie from the client that was sent from google auth
 app.use(cors({
     origin: 'http://localhost:3000',
     credentials: true,
@@ -26,7 +28,7 @@ app.use(cors({
 app.use(session({ secret: process.env.GOOGLE_SECRET_KEY, resave: false, saveUninitialized: true }));
 app.use(passport.initialize());
 app.use(passport.session());
-// my routes
+// using all my routes
 app.use(authRouter);
 app.use('/user', userRouter);
 app.use('/product', productRouter)
