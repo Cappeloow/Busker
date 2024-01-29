@@ -2,7 +2,6 @@ import { ResponseCookies } from "next/dist/compiled/@edge-runtime/cookies";
 import { ICartItem, IAvailability } from "../types";
 export const BUSKER_BACKEND_URL = "http://localhost:5000"
 
-
    /*
    *   OOO   RRRR   DDDD  EEEE  RRRR  SSSS
    *  O   O  R   R D   D E     R   R S
@@ -163,3 +162,23 @@ export const BUSKER_BACKEND_URL = "http://localhost:5000"
         return;
       }
     }
+
+
+    
+export const updateUserDetails = async (userDetails:any) => {
+
+  const response = await fetch(`${BUSKER_BACKEND_URL}/user/update`,
+  {
+    method: "PUT",
+    headers:{
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    },
+    credentials: 'include',
+    body: JSON.stringify(userDetails)
+  }
+  )
+  const data = await response.json();
+  console.log(data);
+
+}

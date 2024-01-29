@@ -35,21 +35,25 @@ export const getSpecificProduct = async (id: string) => {
    *    UUU   SSSS   EEEE  R   R
    */
 
+
  export const getAllUsers = async () => {
     const response = await fetch(`${BUSKER_BACKEND_URL}/user/all`,{
       next:{
-        revalidate: 10
+        revalidate: 1
       }
     });
     const data = await response.json();
-    console.log(data);
     return data;
  } 
 
 
  export const getUserById = async (id: string) => {
-  const response = await fetch(`${BUSKER_BACKEND_URL}/user/${id}`);
-  const data = response.json();
+ const response = await fetch(`${BUSKER_BACKEND_URL}/user/${id}`,{
+    next:{
+      revalidate: 1
+    }
+  });
+  const data = await response.json();
   return data;
  }
 
@@ -98,25 +102,6 @@ export const generateQRCode = async (id:string) =>  {
 }
 
 
-export const updateUserDetails = async () => {
-  const userDetails = {
-    artistName:"Casper Mazzoreti",
-  }
-  const response = await fetch(`${BUSKER_BACKEND_URL}/user/update`,
-  {
-    method: "PUT",
-    headers:{
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
-    },
-    credentials: 'include',
-    body: JSON.stringify(userDetails)
-  }
-  )
-  const data = await response.json();
-  console.log(data);
-
-}
 
 export const uploadImage = async (formData: FormData) => {
   // Remove the 'Content-Type' header and stringify the body

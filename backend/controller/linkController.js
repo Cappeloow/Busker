@@ -2,10 +2,9 @@ import User from '../entities/user.js';
 import Link from '../entities/link.js';
 export async function createLink(req, res) {
     const userId = req.user.userId;
-    const { icon, title, url } = req.body;
+    const { title, url } = req.body;
     try {
         const newLink = await Link.create({
-            icon,
             title,
             url,
             userId

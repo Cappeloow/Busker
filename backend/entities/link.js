@@ -9,13 +9,6 @@ const Link = sequelize.define('links', {
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
     },
-    icon: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        validate: {
-            isString: (value) => isString(value, 'Icon'),
-        },
-    },
     title: {
         type: DataTypes.STRING,
         allowNull: false,

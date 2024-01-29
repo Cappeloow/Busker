@@ -35,7 +35,6 @@ export async function updateUserDetails(req, res) {
         if (user) {
             user.artistName = userDetails.artistName != null ? userDetails.artistName : user.artistName;
             user.country = userDetails.country != null ? userDetails.country : user.country;
-            user.profileImg = userDetails.profileImg != null ? userDetails.profileImg : user.profileImg;
             user.city = userDetails.city != null ? userDetails.city : user.city;
 
             await user.save();
@@ -57,21 +56,22 @@ export async function updateUserDetails(req, res) {
         res.status(500).send(error);
     }
 }
-
 export async function getSpecificUser(req, res) {
     const userId = req.params.userId;
-    User.findOne({ userId: userId })
-        .then(user => {
-            if (user) {
-                res.setHeader('Content-Type', 'image/jpeg');
-                res.send(user);
-            } else {
-                res.status(404).send('User not found');
-            }
-        })
-        .catch(error => {
-            res.status(500).send(error);
-        });
+
+    try {
+        const user = await User.findByPk(userId);
+
+        if (user) {
+            const { country, city, email, artistName, userId } = user.dataValues;
+            const responseData = { userId, country, city, email, artistName };
+            res.status(200).json(responseData);
+        } else {
+            res.status(404).send('User not found');
+        }
+    } catch (error) {
+        res.status(500).send(error.message);
+    }
 }
 
 export async function getAllUsers(req, res) {

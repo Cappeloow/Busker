@@ -20,10 +20,16 @@ artistName:string,
 country?:string,
 linkClicks?:number,
 }
+
+export interface IUserDetails {
+  email:string
+  artistName: string;
+  country: string;
+  city: string;
+};
 // LINKS
 export interface ILink {
     linkId?: string,
-    icon:string,
     title: string,
     url:string,
     linkClicks?: number,

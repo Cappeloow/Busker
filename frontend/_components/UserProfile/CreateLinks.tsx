@@ -14,7 +14,6 @@ export default function CreateLinks({isAuth}: Props) {
   const {id} = useParams();
   const [isCreateLinkOpen, setIsCreateLinkOpen] = useState<boolean>(false);
 const [linkData, setLinkData] = useState<ILink>({
-  icon: '',
   title: '',
   url: '',
 });
@@ -36,13 +35,6 @@ const [linkData, setLinkData] = useState<ILink>({
     }
       
       {isCreateLinkOpen && <form onSubmit={handleSubmit} className='create_link_form'>
-        <input
-          type="text"
-          placeholder="ICON"
-          name="icon"
-          value={linkData.icon}
-          onChange={(e) => setLinkData({ ...linkData, icon: e.target.value })}
-        />
       <select
                 value={linkData.title}
                 onChange={(e) => setLinkData({ ...linkData, title: e.target.value })}
