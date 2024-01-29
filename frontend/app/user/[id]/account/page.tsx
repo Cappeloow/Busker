@@ -1,19 +1,22 @@
-import {getAllUserOrders } from '@/app/services/SSRAuth';
-type Props = {}
+import { getAllUserOrders } from '@/app/services/SSRAuth';
+import { IOrder, IOrderItem } from '@/app/types';
+type Props = {};
 
 async function page({}: Props) {
-  const ordersWithItems = await getAllUserOrders();
-  console.log("ORDER ITEMS-----:",ordersWithItems);
+  const orderList = await getAllUserOrders();
+  console.log("ORDER LIST-----:", orderList);
   return (
     <div>
-      {ordersWithItems.map((orderWithItems, index) => (
+      {orderList.map((order:IOrder[{}], index:number) => (
         <div key={index}>
-          <h2>Order #{index + 1}</h2>
-          <p>Order Details: {JSON.stringify(orderWithItems.order)}</p>
+          <p>Ordernumber: {order.order.orderId}</p>
+          <p>TotalPrice: {order.order.totalPrice} kr</p>
+          <p>Status: {order.order.status}</p>
           <ul>
-            {orderWithItems.orderItems.map((orderItem, itemIndex) => (
+            {order.orderItems.map((orderItem:IOrderItem, itemIndex:number) => (
               <li key={itemIndex}>
-                Item #{itemIndex + 1}: {JSON.stringify(orderItem)}
+                <p>{orderItem.quantity} x</p>
+                <p>{orderItem.price} kr</p>
               </li>
             ))}
           </ul>
@@ -22,4 +25,5 @@ async function page({}: Props) {
     </div>
   );
 }
-export default page
+
+export default page;
