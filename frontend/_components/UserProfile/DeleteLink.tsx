@@ -20,7 +20,7 @@ function DeleteLink({ id }: Props) {
   
     return (
       <>
-        <button className="delete_link_btn" onClick={handleDelete}><MdDelete/></button>
+        <MdDelete className="delete_link_btn" onClick={handleDelete}/>
       </>
     );
   }

@@ -2,6 +2,7 @@
 import React from 'react'
 import {useEffect, useState} from 'react';
 import { getUserImg } from '@/app/services/services';
+import UploadProfileImage from './UploadProfileImage';
 type Props = {
     id:string 
     height:number,
@@ -9,6 +10,7 @@ type Props = {
 }
 
 function ImageComponent({id, height, width}: Props) {
+  const [isOpen, setIsOpen] = useState(false);
       function UserImage( id: string) {
     const [url, setUrl] = useState<string | null>(null);
     useEffect(() => {
@@ -29,7 +31,8 @@ function ImageComponent({id, height, width}: Props) {
 
 
   return (
-    <div>
+    <div className='image_section' onMouseOver={() => setIsOpen(true)} onMouseLeave={() => setIsOpen(false)}>
+      { height > 300 && isOpen && <UploadProfileImage/>}
         {img ? img : "Loading..."}
     </div>
   )

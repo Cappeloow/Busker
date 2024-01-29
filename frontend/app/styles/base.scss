@@ -5,13 +5,13 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    background-color: black;
     color: white;
 }
 
 body {
     font-family: 'Poppins', sans-serif;
     min-height: 100vh;
+    background-color: black;
 }
 
 a {
@@ -32,4 +32,9 @@ p {
 
 li {
     list-style: none;
+}
+
+input,
+button {
+    color: black;
 }
