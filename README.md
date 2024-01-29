@@ -14,7 +14,7 @@ Busker is a full-stack social media platform designed for artists. It allows art
 ## Tech Stack
 
 ### Backend
-
+#### For versions check package.json
 - Node.js
 - Express.js
 - Sequelize (MySQL database)
@@ -26,7 +26,7 @@ Busker is a full-stack social media platform designed for artists. It allows art
 - and more...
 
 ### Frontend
-
+#### For versions check package.json
 - Next.js
 - React
 - React Datepicker
