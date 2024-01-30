@@ -27,7 +27,11 @@
         border: $base-border-settings;
         border-radius: $base-border-radius;
         margin: $base-margin;
-        padding: $base-padding;
+        padding: $base-padding * 2;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
 
         button {
             width: 100px;

@@ -22,8 +22,8 @@ const page = (props: Props) => {
 
     useEffect(() => {
       console.log(cart);
-    },[cart])
-
+      console.log(products);
+    },[cart,products])
 
     const addProduct = (product:IProduct) => {
       const productData = {
@@ -63,8 +63,9 @@ const page = (props: Props) => {
         <div className='product_section'>
             {products && products.map((product:IProduct) => (
               <div key={product.id} className='product_card'>
+                <img src={product.images && product.images[0] || './gray-background.png'} alt="Product image" width={150} height={150} />
                 <h1>{product.name}</h1>
-                <p>{product.price}</p>
+                <p>{product.price} kr</p>
                 <p>{product.description}</p>
                 <button onClick={() => addProduct(product)}>+</button>
               </div>
