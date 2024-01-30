@@ -1,6 +1,6 @@
 # Busker - Social Media Platform for Artists
 
-Busker is a full-stack social media platform designed for artists. It allows artists to showcase their work, share links, and manage their availability through a calendar system.
+Busker is a full-stack social media platform designed for artists. It allows artists to showcase their profile, share links, and manage their availability through a calendar system.
 
 ## Features
 - **Buy your own QR Code Kit such as Signs and Hoodies**
