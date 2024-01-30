@@ -52,12 +52,12 @@ Busker is a full-stack social media platform designed for artists. It allows art
 
 
 
-cd backend
+`cd backend
 npm install
-npm run dev
+npm run dev`
 
-cd frontend
+`cd frontend
 npm install
-npm run dev
+npm run dev `
 
-Visit http://localhost:3000 in your browser.
+` Visit http://localhost:3000 in your browser. `
