@@ -153,7 +153,22 @@ export const BUSKER_BACKEND_URL = "http://localhost:5000"
     console.log(response);
    }
 
-            
+   export const addAmountToLink = async (linkId:string, isAuth?:string) => {
+    console.log(linkId);
+    const response = await fetch(`${BUSKER_BACKEND_URL}/link/clicked`,{
+      method: 'POST',
+      body: JSON.stringify({linkId, isAuth}),
+      headers:{
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+    });
+    const data = response.json();
+    console.log(data);
+    if (response.status === 200) {
+      return;
+    }
+  }
 
     /*
    *   U   U  SSSS  EEEE  RRRR
@@ -164,22 +179,7 @@ export const BUSKER_BACKEND_URL = "http://localhost:5000"
    */
 
 
-    export const addAmountToLink = async (linkId:string, userId:string) => {
-      console.log(linkId);
-      const response = await fetch(`${BUSKER_BACKEND_URL}/link/clicked`,{
-        method: 'POST',
-        body: JSON.stringify({linkId}),
-        headers:{
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-      });
-      const data = response.json();
-      console.log(data);
-      if (response.status === 200) {
-        return;
-      }
-    }
+
 
 
     

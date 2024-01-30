@@ -72,23 +72,27 @@ export const getSpecificProduct = async (id: string) => {
   const data = await response.json();
   return data;
  }
-
- export const getUserImg = async (id: string): Promise<string> => {
+ export const getUserImg = async (id: string): Promise<string | null> => {
   try {
     const response = await fetch(`${BUSKER_BACKEND_URL}/user/${id}/profileImg`);
 
     if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
+        // User not found or has no profile image
+        return null;
     }
+
     const data = await response.blob();
-    const image = URL.createObjectURL(data)
-  
+    const image = URL.createObjectURL(data);
+
+    console.log('User profile image data:', data);
+
     return image;
-  } catch (error:any) {
+  } catch (error: any) {
     console.error('Error fetching user image:', error.message);
     throw error; // Re-throw the error to handle it in the calling code
   }
 };
+
 
 
 export const generateQRCode = async (id:string) =>  {

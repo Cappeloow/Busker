@@ -17,7 +17,7 @@ function ImageComponent({id, height, width, isAuth}: Props) {
     const [url, setUrl] = useState<string | null>(null);
     useEffect(() => {
       (async () => {
-        const image = await getUserImg(id);
+        const image: string | null = await getUserImg(id);
         setUrl(image);
       })();
       return () => {
@@ -25,9 +25,8 @@ function ImageComponent({id, height, width, isAuth}: Props) {
       };
     }, [id]);
   
-    if (!url) return null;
     // next/image doesn't offer any benefits in this case
-    return <img src={url} alt="test" width={width} height={height} style={{borderRadius:'50%'}}/>;
+    return <img src={url || 'https://placekitten.com/200/300'} alt="test" width={width} height={height} style={{borderRadius:'50%'}}/>;
   }
   const img = UserImage(id);
 
