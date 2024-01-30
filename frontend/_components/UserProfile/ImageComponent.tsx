@@ -26,13 +26,13 @@ function ImageComponent({id, height, width, isAuth}: Props) {
     }, [id]);
   
     // next/image doesn't offer any benefits in this case
-    return <img src={url || 'https://placekitten.com/200/300'} alt="test" width={width} height={height} style={{borderRadius:'50%'}}/>;
+    return <img src={url || '/gray-background.png'} alt="test" width={width} height={height} style={{borderRadius:'50%'}}/>;
   }
   const img = UserImage(id);
 
 
   return (
-    <div className='image_section' onMouseOver={() => setIsOpen(true)}>
+    <div className='image_section' onMouseOver={() => setIsOpen(true)} onMouseOutCapture={() => setIsOpen(false) }>
       { height > 300 && isOpen && isAuth === id && <UploadProfileImage/>}
         {img ? img : "Loading..."}
     </div>

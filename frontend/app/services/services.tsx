@@ -83,9 +83,6 @@ export const getSpecificProduct = async (id: string) => {
 
     const data = await response.blob();
     const image = URL.createObjectURL(data);
-
-    console.log('User profile image data:', data);
-
     return image;
   } catch (error: any) {
     console.error('Error fetching user image:', error.message);
