@@ -12,6 +12,7 @@ export default async function LinkSection({ userId, isAuth }: Props) {
 
   return (
     <div className='linkSection'>
+      <h2>SOCIAL MEDIA LINKS</h2>
       <CreateLinks isAuth={isAuth} />
       {links.map((link:ILink) => (
                 <div key={link.linkId} className='link_component'>

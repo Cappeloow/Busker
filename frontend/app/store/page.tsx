@@ -20,11 +20,6 @@ const page = (props: Props) => {
       fetchProducts();
     },[])
 
-    useEffect(() => {
-      console.log(cart);
-      console.log(products);
-    },[cart,products])
-
     const addProduct = (product:IProduct) => {
       const productData = {
         name: product.name,

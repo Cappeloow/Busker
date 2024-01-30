@@ -74,7 +74,6 @@ export async function clickedOnLink(req, res) {
         const link = await Link.findByPk(linkData.linkId);
         // add 1+ to the attribute (linkClicks) and save it.
         if (link.userId === linkData.isAuth) {
-            console.log("dont add anything here");
             return res.status(200).json("Didn't add anything");
         }
         link.linkClicks = link.linkClicks + 1;
