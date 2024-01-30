@@ -16,7 +16,6 @@ function DeleteLink({ id }: Props) {
         await deleteLink(id).then(() => {
           router.refresh();
         });
-        console.log(`Link with id ${id} deleted successfully`);
       } catch (error) {
         console.error('Error deleting link:', error);
       }

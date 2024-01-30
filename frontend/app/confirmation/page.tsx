@@ -14,12 +14,12 @@ function page({}: Props) {
       const id = storedOrderId !== null ? JSON.parse(storedOrderId) : null;
       const orderFromConfirmation = await getOrderConfirmation(id);
       setOrder(orderFromConfirmation.order)
+
+        // // Clear localStorage once the order is successfully retrieved
+        // localStorage.removeItem("orderId");
     }
     fetchOrderConfirmation();
   }, []);
-  useEffect(() => {
-    console.log(order);
-  },[order])
   return (
     <div>
  

@@ -62,7 +62,6 @@ export const BUSKER_BACKEND_URL = "http://localhost:5000"
         export const createAvailability = async (availabilityData:IAvailability) => {
           //MÅSTE FIXA FELMEDDELANDET, VERKAR INTE VISA SIG.
   
-          console.log(availabilityData);
           const response = await fetch(`${BUSKER_BACKEND_URL}/availability/create`, {
             method: "POST",
             body: JSON.stringify(availabilityData),
@@ -82,14 +81,6 @@ export const BUSKER_BACKEND_URL = "http://localhost:5000"
   
   
          export const updateAvailability = async (availabilityData: IAvailability) => { 
-          console.log(availabilityData);
-        //   const updateAvailability = {
-        //     "availabilityId":"408ed02c-f21b-4f3e-965b-b3a09d907053",
-        //     "date":"1395-01-04",
-        //     "location": "Göteborg",
-        //     "bookingTime":"20:00",
-        //     "status": "In Talks",
-        // }
           const response = await fetch(`${BUSKER_BACKEND_URL}/availability/update`,
           {
             method: "PUT",
@@ -150,10 +141,22 @@ export const BUSKER_BACKEND_URL = "http://localhost:5000"
       credentials: 'include',
       body: JSON.stringify({linkId})
     })
-    console.log(response);
    }
 
-            
+   export const addAmountToLink = async (linkId:string, isAuth?:string) => {
+    const response = await fetch(`${BUSKER_BACKEND_URL}/link/clicked`,{
+      method: 'POST',
+      body: JSON.stringify({linkId, isAuth}),
+      headers:{
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+    });
+    const data = response.json();
+    if (response.status === 200) {
+      return;
+    }
+  }
 
     /*
    *   U   U  SSSS  EEEE  RRRR
@@ -164,22 +167,7 @@ export const BUSKER_BACKEND_URL = "http://localhost:5000"
    */
 
 
-    export const addAmountToLink = async (linkId:string, userId:string) => {
-      console.log(linkId);
-      const response = await fetch(`${BUSKER_BACKEND_URL}/link/clicked`,{
-        method: 'POST',
-        body: JSON.stringify({linkId}),
-        headers:{
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-      });
-      const data = response.json();
-      console.log(data);
-      if (response.status === 200) {
-        return;
-      }
-    }
+
 
 
     

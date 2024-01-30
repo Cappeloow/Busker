@@ -20,10 +20,8 @@ function LinkComponent({ link, userId, isAuth }: Props) {
   const { linkId, title } = link;
 
   const handleLinkClick = async () => {
-    console.log(linkId);
-
     try {
-      await addAmountToLink(linkId!, userId).finally(() => {
+      await addAmountToLink(linkId!, isAuth).finally(() => {
         router.refresh();
       });
       window.open(link.url.startsWith('http') ? link.url : 'http://' + link.url, '_blank');

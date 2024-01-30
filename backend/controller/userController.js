@@ -131,14 +131,28 @@ export async function unregisterUser(req, res) {
 }
 
 export async function getSpecificUserProfileImg(req, res) {
-    // get the userId and find the user by pk
-    const id = req.params.userId;
-    const user = await User.findByPk(id);
-    if (!user) {
-        res.status(404);
+    try {
+        // get the userId and find the user by pk
+        const id = req.params.userId;
+        const user = await User.findByPk(id);
+
+        if (!user) {
+            // If user doesn't exist, you can choose to handle it differently
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        if (user.profileImg === null) {
+            // If user exists but has no profile image, you can handle it differently
+            return res.status(404).json({ error: 'User has no profile image' });
+        }
+
+        // If user exists and has a profile image, send the image
+        res.setHeader('Content-Type', 'image/jpeg');
+        res.status(200).send(user.profileImg);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
     }
-    res.setHeader('Content-Type', 'image/jpeg');
-    res.status(200).send(user.profileImg);
 }
 
 export async function uploadProfileImage(req, res) {
